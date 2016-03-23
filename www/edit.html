@@ -1,0 +1,32 @@
+ <ion-pane>
+
+<div class="bar bar-header">
+  <button ui-sref="main" class="button button-full button-positive">
+    Back to wallets
+  </button>
+</div>
+
+<ion-content>
+<div class="list card">
+  <div class="item item-image">
+    <img src="data:image/jpeg;base64,{{image}}">
+  </div>
+  <label class="item item-input">
+  <span class="input-label">Name</span>
+  <input ng-model="name" type="text" placeholder="{{name}}">
+</label>
+<label class="item item-input">
+  <span class="input-label">Birthdate</span>
+  <input ng-model="birthday" type="date" value="{{birthday}}">
+
+</label>
+<button ng-click="update(name,birthday)" class="button button-full button-positive">
+   Update this wallet
+</button>
+</div>
+
+</ion-content>
+</ion-pane>
+<div class="bar bar-footer bar-balanced">
+  <div class="title">{{name}}</div>
+</div>

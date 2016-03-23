@@ -1,0 +1,20 @@
+ <ion-pane on-swipe-right="swipeleftAction()">
+
+<div class="bar bar-header">
+  <button ui-sref="show({id: '{{wallet}}' })" class="button button-full button-positive">
+    Back to show
+  </button>
+</div>
+
+<ion-content>
+<div class="list card">
+  <div class="item item-image">
+    <img ng-click="share()" src="data:image/jpeg;base64,{{images[index].image}}">
+  </div>
+</div>
+
+</ion-content>
+</ion-pane>
+<div class="bar bar-footer bar-balanced">
+  <div class="title"></div>
+</div>

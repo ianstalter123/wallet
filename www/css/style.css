@@ -1,0 +1,9 @@
+/* Empty. Add your own CSS if you like */
+.selected {
+opacity: 0.5;
+}
+
+.scroll-content {
+bottom: 5px;
+
+}

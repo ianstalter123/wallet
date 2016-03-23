@@ -1,0 +1,32 @@
+ <ion-pane>
+
+ <div class="bar bar-header">
+  <button ng-show='loggedIn' ui-sref="main" class="button button-full button-positive">
+    View Baby Albums: {{current}}
+  </button>
+</div>
+
+
+<ion-content>
+<div class="list card">
+  <div class="item item-image">
+    <img src="http://www.iconarchive.com/download/i63195/dapino/baby-boy/baby-sleeping.ico">
+  </div>
+</div>
+<button ng-show='!loggedIn' ui-sref="login" class="button button-full button-positive">
+  Login
+</button>
+<button ng-show='!loggedIn' ui-sref="signup" class="button button-full button-positive">
+  Sign Up
+</button>
+<button ng-click='logOut()' ng-show='loggedIn' class="button button-full button-positive">
+  Log Out
+</button>
+<button ng-show='loggedIn' class="button button-full button-positive">
+  {{user}}
+</button>
+</ion-content>
+</ion-pane>
+<div class="bar bar-footer bar-balanced">
+  <div class="title">Baby Wallet V0.05</div>
+</div>
