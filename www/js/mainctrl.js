@@ -11,7 +11,7 @@ app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArr
 
   $scope.swipeleftAction = function() {
     $ionicViewSwitcher.nextDirection('back');
-      $state.go('start');
+    $state.go('start');
   }
 
   $scope.open = function() {
@@ -41,7 +41,7 @@ app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArr
   $scope.showDetails = function() {
     $ionicActionSheet.show({
       buttons: [
-        { text: 'New Wallet' },
+      { text: 'New Wallet' },
       ],
       titleText: 'Create Baby Wallet',
       cancelText: 'Cancel',
@@ -58,26 +58,26 @@ app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArr
     $scope.id = event.target.id;
 
 
-      var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
-      var authData = ref.getAuth();
-      if (authData) {
-        console.log("Authenticated user:", authData);
-        $scope.uid = authData.auth.uid;
+    var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+    var authData = ref.getAuth();
+    if (authData) {
+      console.log("Authenticated user:", authData);
+      $scope.uid = authData.auth.uid;
+    }
+
+    var galRef = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/" + $scope.id);
+    $scope.wallet = $firebaseObject(galRef);
+    $scope.wallet.$loaded().then(function() {
+      $scope.oid = $scope.wallet.uid;
+      console.log($scope.oid);
+      if($scope.oid === $scope.uid) {
+        $state.go('edit', { "id": $scope.id});
+      }
+      else {
+        console.log('incorrect user');
       }
 
-      var galRef = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/" + $scope.id);
-      $scope.wallet = $firebaseObject(galRef);
-      $scope.wallet.$loaded().then(function() {
-        $scope.oid = $scope.wallet.uid;
-        console.log($scope.oid);
-        if($scope.oid === $scope.uid) {
-          $state.go('edit', { "id": $scope.id});
-        }
-        else {
-          console.log('incorrect user');
-        }
-
-      });
+    });
 
 
 

@@ -8,25 +8,34 @@
 
 
 <ion-content>
-<div class="list card">
-  <div class="item item-image">
-    <img src="http://www.iconarchive.com/download/i63195/dapino/baby-boy/baby-sleeping.ico">
-  </div>
-</div>
+<ion-slide-box>
+<ion-slide ng-repeat="wallet in wallets">
+<img src="data:image/jpeg;base64,{{wallets[$index].image}}">
+</ion-slide>
+
+</ion-slide-box>
+
 <button ng-show='!loggedIn' ui-sref="login" class="button button-full button-positive">
   Login
 </button>
 <button ng-show='!loggedIn' ui-sref="signup" class="button button-full button-positive">
   Sign Up
 </button>
+
 <button ng-click='logOut()' ng-show='loggedIn' class="button button-full button-positive">
   Log Out
 </button>
-<button ng-show='loggedIn' class="button button-full button-positive">
-  {{user}}
-</button>
+<a ng-show='loggedIn' class="item item-avatar" href="#">
+  <img src="{{profileImageURL}}">
+  <h2>{{user}}</h2>
+
+</a>
+
+
+
+
 </ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">
-  <div class="title">Baby Wallet V0.05</div>
+  <div class="title">Baby Wallet V0.06</div>
 </div>

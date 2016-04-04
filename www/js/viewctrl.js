@@ -1,4 +1,4 @@
-app.controller('viewCtrl', function($scope,$state,$stateParams,$firebaseArray,$cordovaInstagram,$ionicViewSwitcher) {
+app.controller('viewCtrl', function($scope,$state,$stateParams,$firebaseArray,$cordovaInstagram,$ionicViewSwitcher,$cordovaSocialSharing) {
   console.log('test');
     //console.log($stateParams.image);
     $scope.wallet = $stateParams.wallet_id; //getting fooVal
@@ -10,16 +10,29 @@ app.controller('viewCtrl', function($scope,$state,$stateParams,$firebaseArray,$c
     $scope.index = $scope.image
 
     $scope.share = function() {
-    $cordovaInstagram.share($scope.images[$scope.index]).then(function() {
+      $cordovaInstagram.share($scope.images[$scope.index]).then(function() {
     // Worked
-    }, function(err) {
+  }, function(err) {
     // Didn't work
-    });
-   }
+  });
+    }
+
+
+    $scope.shareAnywhere = function() {
+      $cordovaSocialSharing.share("This is your message", "This is your subject", "www/imagefile.png", "https://www.thepolyglotdeveloper.com");
+    }
+
+    $scope.shareViaTwitter = function(message, image, link) {
+      $cordovaSocialSharing.canShareVia("twitter", message, image, link).then(function(result) {
+        $cordovaSocialSharing.shareViaTwitter(message, image, link);
+      }, function(error) {
+        alert("Cannot share on Twitter");
+      });
+    }
 
     $scope.swipeleftAction = function() {
       $ionicViewSwitcher.nextDirection('back');
-        $state.go('main');
+      $state.go('main');
     }
 
   })

@@ -7,3 +7,22 @@ opacity: 0.5;
 bottom: 5px;
 
 }
+
+.images-list{
+    max-height: 120px;
+    overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    .image{
+        display: inline-block;
+        height: 120px;
+        padding: 0 1px;
+        img{
+            width: auto;
+            height: inherit;
+        }
+    }
+}

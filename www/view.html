@@ -1,6 +1,6 @@
  <ion-pane on-swipe-right="swipeleftAction()">
 
-<div class="bar bar-header">
+ <div class="bar bar-header">
   <button ui-sref="show({id: '{{wallet}}' })" class="button button-full button-positive">
     Back to show
   </button>
@@ -17,4 +17,7 @@
 </ion-pane>
 <div class="bar bar-footer bar-balanced">
   <div class="title"></div>
+  <button class="button" ng-click="shareAnywhere()">Share anywhere</button>
+  <button class="button" ng-click="shareViaTwitter('some message', 'null', 'https://www.thepolyglotdeveloper.com')">Share on Twitter</button>
+
 </div>
