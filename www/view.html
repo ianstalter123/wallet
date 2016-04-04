@@ -13,6 +13,16 @@
   </div>
 </div>
 
+<label class="item item-input">
+  <span class="input-label">Comment:</span>
+  <input ng-model="comment" type="text">
+</label>
+<button class="button" ng-click="add(comment)">Add</button>
+
+<ul ng-repeat="c in images[index].comments">
+  <li style="text-align:center">{{c.user}} : {{c.comment}}</li>
+</ul>
+
 </ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">

@@ -26,7 +26,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
     var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
     ref.authWithOAuthPopup("google", function(error, authData) {
       if (error) {
-        console.log("Login Failed!", error);
+        alert("Login Failed!", error);
       } else {
         console.log("Authenticated successfully with payload:", authData);
         console.log("Authenticated user:", authData);
@@ -53,7 +53,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
       password : password
     }, function(error, userData) {
       if (error) {
-        console.log("Error creating user:", error);
+        alert("Error creating user - please use an email:", error);
       } else {
         console.log("Successfully created user account with uid:", userData.uid);
         $scope.loginEmail(email,password);
@@ -79,7 +79,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
       password : password
     }, function(error, authData) {
       if (error) {
-        console.log("Login Failed!", error);
+        alert("Login Failed!", error);
       } else {
         console.log("Authenticated successfully with payload:", authData);
         $rootScope.loggedIn = true;
