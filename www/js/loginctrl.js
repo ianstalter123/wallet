@@ -3,14 +3,23 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
   var ref = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/");
   $scope.wallets = $firebaseArray(ref);
 
-   var authRef = new Firebase("https://crackling-fire-8350.firebaseio.com");
-   $scope.authObj = $firebaseAuth(authRef);
+  var authRef = new Firebase("https://crackling-fire-8350.firebaseio.com");
+  $scope.authObj = $firebaseAuth(authRef);
   var authData = $scope.authObj.$getAuth();
-  if (authData) {
+  if (authData && authData.hasOwnProperty("google")) {
     $rootScope.loggedIn = true;
-    // $scope.current = authData.google.displayName;
-    // $rootScope.user = authData.google.displayName;
-  } else {
+    console.log(authData);
+    $scope.current = authData.google.displayName;
+    $rootScope.user = authData.google.displayName;
+    $rootScope.profileImageURL = authData.google.profileImageURL;
+  } else if (authData) {
+    $rootScope.loggedIn = true;
+    $scope.current = authData.password.email;
+    $rootScope.user = authData.password.email;
+    $rootScope.profileImageURL = authData.password.profileImageURL;
+    console.log(authData);
+  }
+  else {
     $rootScope.loggedIn = false;
   }
 
@@ -88,6 +97,8 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
         if (authData) {
           console.log("Authenticated user:", authData);
           $rootScope.user = authData.password.email;
+          $rootScope.profileImageURL = authData.password.profileImageURL;
+
         }
         $state.go('start');
       }

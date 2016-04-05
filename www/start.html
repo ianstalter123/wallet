@@ -8,10 +8,13 @@
 
 
 <ion-content>
-<ion-slide-box>
-<ion-slide ng-repeat="wallet in wallets">
-<img src="data:image/jpeg;base64,{{wallets[$index].image}}">
+
+<div class="list card">
+  <ion-slide-box>
+  <ion-slide ng-repeat="wallet in wallets">
+  <img src="data:image/jpeg;base64,{{wallets[$index].image}}">
 </ion-slide>
+</div>
 
 </ion-slide-box>
 
@@ -25,7 +28,7 @@
 <button ng-click='logOut()' ng-show='loggedIn' class="button button-full button-positive">
   Log Out
 </button>
-<a ng-show='loggedIn' class="item item-avatar" href="#">
+<a ng-show='loggedIn' class="item item-avatar" ui-sref="profile">
   <img src="{{profileImageURL}}">
   <h2>{{user}}</h2>
 

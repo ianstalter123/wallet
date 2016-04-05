@@ -1,0 +1,29 @@
+ <ion-pane on-swipe-right="swipeleftAction()">
+
+ <div class="bar bar-header">
+  <button ui-sref="start" class="button button-full button-positive">
+    Back to start
+  </button>
+</div>
+
+<ion-content>
+<h1 style="text-align:center">My profile</h1>
+
+<a class="item item-thumbnail-left" href="#">
+  <img src="{{profileImageURL}}">
+  <h2>{{user}}</h2>
+
+</a>
+
+<a class="item item-thumbnail-left" href="#">
+  <img src="data:image/jpeg;base64,{{wallet.image}}">
+  <h2>{{wallet.name}}</h2>
+
+</a>
+
+
+</ion-content>
+</ion-pane>
+<div class="bar bar-footer bar-balanced">
+
+</div>

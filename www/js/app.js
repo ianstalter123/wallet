@@ -47,6 +47,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'login.html',
     controller: 'loginCtrl'
   })
+  $stateProvider.state('profile', {
+    url: '/profile',
+    templateUrl: 'profile.html',
+    controller: 'profileCtrl'
+  })
 })
 
 
