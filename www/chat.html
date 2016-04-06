@@ -1,0 +1,40 @@
+ <ion-pane on-swipe-right="swipeleftAction()">
+
+ <div class="bar bar-header">
+  <button ui-sref="start" class="button button-full button-positive">
+    Back to start
+  </button>
+</div>
+
+<ion-content class="has-header">
+
+<div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input ng-model="message" type="text" placeholder="Message">
+    </label>
+    <button ng-click="add(message)" class="button button-small">
+      Submit
+    </button>
+  </div>
+
+<ul ng-repeat="m in messages">
+  <li class="item" style="text-align:center">{{m.user}} : {{m.message}}</li>
+</ul>
+
+</ion-content>
+</ion-pane>
+<ion-tabs class="tabs-positive tabs-icon-top">
+
+  <ion-tab title="Home" ui-sref="start" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+    <!-- Tab 1 content -->
+  </ion-tab>
+
+  <ion-tab ui-sref="chat" title="Chat" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+    <!-- Tab 2 content -->
+  </ion-tab>
+
+  <ion-tab ng-show='loggedIn' ui-sref="main" title="Wallets" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+    <!-- Tab 3 content -->
+  </ion-tab>
+
+</ion-tabs>

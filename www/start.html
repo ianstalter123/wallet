@@ -1,22 +1,20 @@
  <ion-pane>
 
- <div class="bar bar-header">
-  <button ng-show='loggedIn' ui-sref="main" class="button button-full button-positive">
-    View Baby Albums: {{current}}
-  </button>
+ <div class="bar bar-header bar-calm">
+  <div class="title">Baby Wallet 0.6</div>
 </div>
 
 
-<ion-content>
+<ion class="has-header">
 
 <div class="list card">
-  <ion-slide-box>
-  <ion-slide ng-repeat="wallet in wallets">
-  <img src="data:image/jpeg;base64,{{wallets[$index].image}}">
-</ion-slide>
+
+
+  <img src="img/start.png">
+
 </div>
 
-</ion-slide-box>
+
 
 <button ng-show='!loggedIn' ui-sref="login" class="button button-full button-positive">
   Login
@@ -39,6 +37,20 @@
 
 </ion-content>
 </ion-pane>
-<div class="bar bar-footer bar-balanced">
-  <div class="title">Baby Wallet V0.06</div>
-</div>
+
+<ion-tabs class="tabs-positive tabs-icon-top">
+
+<ion-tab title="Home" ui-sref="start" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+<!-- Tab 1 content -->
+</ion-tab>
+
+<ion-tab ui-sref="chat" title="Chat" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+<!-- Tab 2 content -->
+</ion-tab>
+
+<ion-tab ng-show='loggedIn' ui-sref="main" title="Wallets" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+<!-- Tab 3 content -->
+</ion-tab>
+
+</ion-tabs>
+

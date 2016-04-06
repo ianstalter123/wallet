@@ -10,6 +10,7 @@ app.controller('profileCtrl', function($scope,$rootScope,$firebaseAuth,$firebase
     $scope.key = snapshot.key();
     console.log($scope.key);
     var walRef = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/" +  snapshot.key())
+
     $scope.wallet = $firebaseObject(walRef);
 
     });

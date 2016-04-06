@@ -1,14 +1,21 @@
  <ion-pane on-swipe-right="swipeleftAction()">
  <div class="bar bar-header">
-  <button ui-sref="start" class="button button-full button-positive">
-    Back to index page
+  <button ng-click="showDetails()" class="button button-full button-positive">
+    New Wallet
   </button>
 </div>
 
 <ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
 <!--should be wallet in wallets-->
-<div class="row" ng-repeat="wallet in wallets" ng-if="$index % 2 === 0">
-  <div class="col col-50" ng-if="$index < wallets.length">
+<div class="row" ng-repeat="wallet in wallets">
+
+ <a class="item item-thumbnail-left" style="width:100%" ui-sref="show({id: '{{wallets[$index].$id}}' })">
+  <img ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
+  <h2 ng-click="edit($event)">{{wallets[$index].name}}</h2>
+  <h2>{{wallets[$index].birthday | date:'M/d/y'}}</h2>
+
+</a>
+  <!-- <div class="col col-50" ng-if="$index < wallets.length">
     <img ng-click='view()' id="{{wallets[$index].$id}}" ui-sref="show({id: '{{wallets[$index].$id}}' })" ng-src="data:image/jpeg;base64,{{wallets[$index].image}}" width="100%" />
     <div ng-click="edit($event)" id="{{wallets[$index].$id}}" style="background:grey" class="col text-center">
      <span id="{{wallets[$index].$id}}" style="text-align:center;">{{wallets[$index].name}}</span>
@@ -18,20 +25,25 @@
    <img ng-click='view()' id="{{wallets[$index+1].$id}}" ui-sref="show({id: '{{wallets[$index+1].$id}}' })" ng-src="data:image/jpeg;base64 ,{{wallets[$index+1].image}}" width="100%" />
    <div ng-click="edit($event)" id="{{wallets[$index+1].$id}}" style="background:grey" class="col text-center">
      <span id="{{wallets[$index + 1].$id}}" style="text-align:center">{{wallets[$index+1].name}}</span>
-   </div>
+   </div> -->
  </div>
 </div>
 
 </ion-content>
 </ion-pane>
-<div class="bar bar-footer bar-balanced">
-  <button on-hold="showDetails()" class="button button-outline button-light" ng-click="add()"><i class="ion-plus"></i></button>
+<ion-tabs class="tabs-positive tabs-icon-top">
 
-  <button ng-click="view()" class="button icon ion-gear-a">
-  View Wallet
-  </button>
+  <ion-tab title="Home" ui-sref="start" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
+    <!-- Tab 1 content -->
+  </ion-tab>
 
-  <button class="button button-outline button-light" ng-click="remove()"><i class="ion-minus"></i></button>
-</div>
-<div class="title">New Wallet</div>
-</div>
+  <ion-tab ui-sref="chat" title="Chat" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+    <!-- Tab 2 content -->
+  </ion-tab>
+
+  <ion-tab ng-show='loggedIn' ui-sref="main" title="Wallets" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+    <!-- Tab 3 content -->
+  </ion-tab>
+
+</ion-tabs>
+

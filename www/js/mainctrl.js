@@ -1,5 +1,17 @@
-app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArray,$ionicViewSwitcher,$firebaseObject,$cordovaCamera,$ionicModal) {
+angular.module('main.controller', [])
+
+app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArray,$ionicViewSwitcher,$firebaseObject,$cordovaCamera,$ionicModal,$ionicLoading) {
   //$scope.previous;
+  $scope.test = "hello";
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
+
+
   $ionicModal.fromTemplateUrl('my-modal.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -109,6 +121,15 @@ app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArr
 
   var walletRef = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets");
   $scope.wallets = $firebaseArray(walletRef)
+
+   $scope.wallets.$loaded(
+  function(data) {
+
+   $ionicLoading.hide();
+
+ }
+ );
+
 
   $scope.newWallet = function() {
 
