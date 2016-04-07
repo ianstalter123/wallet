@@ -5,23 +5,6 @@ app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $
 
   console.log(FirebaseConfig.base);
 
-  if (authService.authData && authService.authData.hasOwnProperty("google")) {
-    $rootScope.loggedIn = true;
-    console.log(authService.authData);
-    $scope.current = authService.authData.google.displayName;
-    $rootScope.user = authService.authData.google.displayName;
-    $rootScope.profileImageURL = authService.authData.google.profileImageURL;
-  } else if (authService.authData) {
-    $rootScope.loggedIn = true;
-    $scope.current = authService.authData.password.email;
-    $rootScope.user = authService.authData.password.email;
-    $rootScope.profileImageURL = authService.authData.password.profileImageURL;
-    console.log(authService.authData);
-  }
-  else {
-    $rootScope.loggedIn = false;
-  }
-
   $ionicSlideBoxDelegate.update();
 
   $scope.googleIn = function() {
