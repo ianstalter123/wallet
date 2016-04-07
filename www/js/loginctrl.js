@@ -1,38 +1,32 @@
-app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$firebaseArray,$firebaseObject,$ionicActionSheet,$cordovaCamera,$ionicSlideBoxDelegate,$firebaseAuth) {
+app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $stateParams,$firebaseArray,$firebaseObject,$ionicActionSheet,$cordovaCamera,$ionicSlideBoxDelegate,$firebaseAuth, authService) {
 
-  var ref = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/");
+  var ref = new Firebase(FirebaseConfig.base + "/wallets/");
   $scope.wallets = $firebaseArray(ref);
 
-  var authRef = new Firebase("https://crackling-fire-8350.firebaseio.com");
-  $scope.authObj = $firebaseAuth(authRef);
-  var authData = $scope.authObj.$getAuth();
-  if (authData && authData.hasOwnProperty("google")) {
+  console.log(FirebaseConfig.base);
+
+  if (authService.authData && authService.authData.hasOwnProperty("google")) {
     $rootScope.loggedIn = true;
-    console.log(authData);
-    $scope.current = authData.google.displayName;
-    $rootScope.user = authData.google.displayName;
-    $rootScope.profileImageURL = authData.google.profileImageURL;
-  } else if (authData) {
+    console.log(authService.authData);
+    $scope.current = authService.authData.google.displayName;
+    $rootScope.user = authService.authData.google.displayName;
+    $rootScope.profileImageURL = authService.authData.google.profileImageURL;
+  } else if (authService.authData) {
     $rootScope.loggedIn = true;
-    $scope.current = authData.password.email;
-    $rootScope.user = authData.password.email;
-    $rootScope.profileImageURL = authData.password.profileImageURL;
-    console.log(authData);
+    $scope.current = authService.authData.password.email;
+    $rootScope.user = authService.authData.password.email;
+    $rootScope.profileImageURL = authService.authData.password.profileImageURL;
+    console.log(authService.authData);
   }
   else {
     $rootScope.loggedIn = false;
   }
 
-  // if(!$scope.current || $rootScope.user) {
-  //   $rootScope.loggedIn = false;
-  //   $rootScope.user = "";
-  // }
-
   $ionicSlideBoxDelegate.update();
 
   $scope.googleIn = function() {
     console.log('clicked google');
-    var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+    var ref = new Firebase(FirebaseConfig.base);
     ref.authWithOAuthPopup("google", function(error, authData) {
       if (error) {
         alert("Login Failed!", error);
@@ -54,7 +48,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
     $scope.email = '';
     $scope.password = '';
 
-    var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+    var ref = new Firebase(FirebaseConfig.base);
 
     console.log('here ' + email);
     ref.createUser({
@@ -67,7 +61,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
         console.log("Successfully created user account with uid:", userData.uid);
         $scope.loginEmail(email,password);
         $rootScope.loggedIn = true;
-        var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+        var ref = new Firebase(FirebaseConfig.base);
         var authData = ref.getAuth();
         if (authData) {
           console.log("Authenticated user:", authData);
@@ -81,7 +75,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
 
   $scope.loginEmail = function(email,password){
     $rootScope.profileImageURL = "";
-    var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+    var ref = new Firebase(FirebaseConfig.base);
 
     ref.authWithPassword({
       email    : email,
@@ -92,7 +86,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
       } else {
         console.log("Authenticated successfully with payload:", authData);
         $rootScope.loggedIn = true;
-        var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+        var ref = new Firebase(FirebaseConfig.base);
         var authData = ref.getAuth();
         if (authData) {
           console.log("Authenticated user:", authData);
@@ -106,7 +100,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
   };
 
   $scope.showUser = function() {
-    var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+    var ref = new Firebase(FirebaseConfig.base);
     var authData = ref.getAuth();
     if (authData) {
       console.log("Authenticated user:", authData);
@@ -116,7 +110,7 @@ app.controller('loginCtrl', function($scope,$rootScope, $state, $stateParams,$fi
   }
 
   $scope.logOut = function() {
-    var ref = new Firebase("https://crackling-fire-8350.firebaseio.com");
+    var ref = new Firebase(FirebaseConfig.base);
 
     ref.unauth();
     $rootScope.user = '';
