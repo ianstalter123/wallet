@@ -12,8 +12,8 @@ app.controller('viewCtrl', function($scope,$state,$stateParams,$firebaseArray,$f
 
     $scope.images.$loaded().then(function() {
       console.log($scope.images[$scope.image].$id);
-       var commentRef = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/" +$scope.wallet+"/images/" + $scope.images[$scope.image].$id + "/comments/");
-       $scope.comments = $firebaseArray(commentRef);
+      var commentRef = new Firebase("https://crackling-fire-8350.firebaseio.com/wallets/" +$scope.wallet+"/images/" + $scope.images[$scope.image].$id + "/comments/");
+      $scope.comments = $firebaseArray(commentRef);
     });
 
 
@@ -30,24 +30,28 @@ app.controller('viewCtrl', function($scope,$state,$stateParams,$firebaseArray,$f
   });
     }
 
-     $scope.add = function(comment) {
+    $scope.add = function(comment) {
       console.log($scope.comments);
       console.log(comment);
       $scope.comments.$add({'comment': comment, 'user': $rootScope.user })
     }
 
 
-    $scope.shareAnywhere = function() {
-      $cordovaSocialSharing.share("This is your message", "This is your subject", "www/imagefile.png", "https://www.thepolyglotdeveloper.com");
-    }
 
-    $scope.shareViaTwitter = function(message, image, link) {
-      $cordovaSocialSharing.canShareVia("twitter", message, image, link).then(function(result) {
-        $cordovaSocialSharing.shareViaTwitter(message, image, link);
-      }, function(error) {
-        alert("Cannot share on Twitter");
+    $scope.shareAnywhere = function() {
+      $scope.images.$loaded().then(function() {
+        console.log($scope.images[$scope.image].image);
+        $cordovaSocialSharing.share("My wallet Image!", "My wallet Image!", "data:image/png;base64," + $scope.images[$scope.image].image, "www.github.com/ianstalter123/wallet");
       });
     }
+
+    // $scope.shareViaTwitter = function(message, image, link) {
+    //   $cordovaSocialSharing.canShareVia("twitter", message, image, link).then(function(result) {
+    //     $cordovaSocialSharing.shareViaTwitter(message, image, link);
+    //   }, function(error) {
+    //     alert("Cannot share on Twitter");
+    //   });
+    // }
 
     $scope.swipeleftAction = function() {
       $ionicViewSwitcher.nextDirection('back');

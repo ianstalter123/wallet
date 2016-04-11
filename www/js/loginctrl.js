@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $stateParams,$firebaseArray,$firebaseObject,$ionicActionSheet,$cordovaCamera,$ionicSlideBoxDelegate,$firebaseAuth, authService) {
+app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $stateParams,$firebaseArray,$firebaseObject,$ionicActionSheet,$cordovaCamera,$ionicSlideBoxDelegate,$firebaseAuth, authService,HttpService) {
 
   var ref = new Firebase(FirebaseConfig.base + "/wallets/");
   $scope.wallets = $firebaseArray(ref);
@@ -6,6 +6,21 @@ app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $
   console.log(FirebaseConfig.base);
 
   $ionicSlideBoxDelegate.update();
+
+  $scope.chat = function() {
+    if($rootScope.loggedIn === false){
+      HttpService.alertPopup("ERROR", "Not logged in");
+    } else {
+      $state.go('chat')
+    }
+  }
+  $scope.main = function() {
+    if($rootScope.loggedIn === false){
+      HttpService.alertPopup("ERROR", "Not logged in");
+    } else {
+      $state.go('main')
+    }
+  }
 
   $scope.googleIn = function() {
     console.log('clicked google');
