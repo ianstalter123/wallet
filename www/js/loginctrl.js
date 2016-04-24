@@ -1,11 +1,16 @@
 app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $stateParams,$firebaseArray,$firebaseObject,$ionicActionSheet,$cordovaCamera,$ionicSlideBoxDelegate,$firebaseAuth, authService,HttpService) {
 
+  //console.log(authService.authData.uid);
   var ref = new Firebase(FirebaseConfig.base + "/wallets/");
   $scope.wallets = $firebaseArray(ref);
 
   console.log(FirebaseConfig.base);
 
   $ionicSlideBoxDelegate.update();
+
+  $scope.goProfile = function() {
+    $state.go('profile');
+  }
 
   $scope.chat = function() {
     if($rootScope.loggedIn === false){
@@ -64,6 +69,7 @@ app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $
         if (authData) {
           console.log("Authenticated user:", authData);
           $rootScope.user = authData.password.email;
+          $rootScope.id = authData.uid;
         }
         $state.go('start');
       }
@@ -90,6 +96,7 @@ app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $
           console.log("Authenticated user:", authData);
           $rootScope.user = authData.password.email;
           $rootScope.profileImageURL = authData.password.profileImageURL;
+          $rootScope.id = authData.uid;
 
         }
         $state.go('start');
@@ -113,6 +120,10 @@ app.controller('loginCtrl', function($scope,FirebaseConfig,$rootScope, $state, $
     ref.unauth();
     $rootScope.user = '';
     $rootScope.loggedIn = false;
+    $rootScope.current = '';
+    $rootScope.profileImageURL = '';
+    $rootScope.id = '';
+    $rootScope.wallet = '';
   }
 
 

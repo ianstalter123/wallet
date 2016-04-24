@@ -1,6 +1,7 @@
 app.factory('authService', function (Firebase,$firebaseAuth,$rootScope,FirebaseConfig) {
  var ref = new Firebase(FirebaseConfig.base);
  var obj = $firebaseAuth(ref);
+
  var data = obj.$getAuth();
 
   if (data && data.hasOwnProperty("google")) {
@@ -9,12 +10,18 @@ app.factory('authService', function (Firebase,$firebaseAuth,$rootScope,FirebaseC
     $rootScope.current = data.google.displayName;
     $rootScope.user = data.google.displayName;
     $rootScope.profileImageURL = data.google.profileImageURL;
+    $rootScope.id = data.id;
+
+
+
+
+
   } else if (data) {
     $rootScope.loggedIn = true;
     $rootScope.current = data.password.email;
     $rootScope.user = data.password.email;
     $rootScope.profileImageURL = data.password.profileImageURL;
-    console.log(data);
+    $rootScope.id = data.uid;
   }
   else {
     $rootScope.loggedIn = false;

@@ -1,6 +1,6 @@
 angular.module('main.controller', [])
 
-app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArray,$ionicViewSwitcher,$firebaseObject,$cordovaCamera,$ionicModal,$ionicLoading) {
+app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArray,$ionicViewSwitcher,$firebaseObject,$cordovaCamera,$ionicModal,$ionicLoading,$rootScope) {
   //$scope.previous;
   $scope.test = "hello";
   $ionicLoading.show({
@@ -148,7 +148,7 @@ app.controller("mainCtrl", function($scope,$state,$ionicActionSheet,$firebaseArr
     //title:title -> below image should also load a title for wallet data
 
     $cordovaCamera.getPicture(options).then(function(imageData) {
-      $scope.wallets.$add({image: imageData}).then(function() {
+      $scope.wallets.$add({image: imageData, uid: $rootScope.id}).then(function() {
         alert("Image has been uploaded");
       });
     }, function(error) {

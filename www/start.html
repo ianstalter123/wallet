@@ -26,7 +26,7 @@
 <button ng-click='logOut()' ng-show='loggedIn' class="button button-full button-positive">
   Log Out
 </button>
-<a ng-show='loggedIn' class="item item-avatar" ui-sref="profile">
+<a ng-show='loggedIn' class="item item-avatar" ng-click="goProfile()">
   <img src="{{profileImageURL}}">
   <h2>{{user}}</h2>
 
@@ -44,7 +44,7 @@
 <!-- Tab 1 content -->
 </ion-tab>
 
-<ion-tab ng-click="chat()" title="Feed" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
+<ion-tab ng-click="chat()" title="Gabber" icon-on="ion-ios-clock" icon-off="ion-ios-clock-outline">
 <!-- Tab 2 content -->
 </ion-tab>
 
