@@ -1,29 +1,23 @@
- <ion-pane on-swipe-right="swipeleftAction()">
-
- <div class="bar bar-header">
-  <button ui-sref="start" class="button button-full button-positive">
-    Back to start
-  </button>
-</div>
-
-<ion-content>
-<h1 style="text-align:center">My profile</h1>
-
-<a class="item item-thumbnail-left" href="#">
-  <img src="{{profileImageURL}}">
-  <h2>{{user}}</h2>
-
-</a>
-
-<a ng-show="profile" class="item item-thumbnail-left" ui-sref="edit({id: wid})">
-  <img src="data:image/jpeg;base64,{{profile.image}}">
-  <h2>{{profile.name}}</h2>
-
-</a>
-
-
-</ion-content>
+<ion-pane on-swipe-right="swipeleftAction()">
+    <div class="bar bar-header">
+        <button ui-sref="start" class="button button-full button-positive">
+            Back to start
+        </button>
+    </div>
+    <ion-content class="list-inset">
+        <div class="height-20"></div>
+        <div class="height-20"></div>
+        <h1 style="text-align:center">{{name}}</h1>
+        <h3 style="text-align:center">{{phone}}</h3>
+        <a class="item item-thumbnail-left" href="#">
+            <img src="{{profileImageURL}}">
+            <h2>{{user}}</h2>
+        </a>
+        <a ng-show="profile" class="item item-thumbnail-left" ui-sref="edit({id: wid})">
+            <img src="data:image/jpeg;base64,{{profile.image}}">
+            <h2>{{profile.name}}</h2>
+        </a>
+    </ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">
-
 </div>

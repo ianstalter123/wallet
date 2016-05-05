@@ -7,14 +7,24 @@
 
 <ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
 <!--should be wallet in wallets-->
-<div class="row" ng-repeat="wallet in wallets">
+<div class="row" >
+<ion-list style="width:100%">
+  <ion-item style="width:100%" ui-sref="show({id: '{{wallets[$index].$id}}' })" class="item item-thumbnail-left" ng-repeat="wallet in wallets">
 
- <a class="item item-thumbnail-left" style="width:100%" ui-sref="show({id: '{{wallets[$index].$id}}' })">
-  <img ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
+    <img ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
   <h2 ng-click="edit($event)">{{wallets[$index].name}}</h2>
   <h2>{{wallets[$index].birthday | date:'M/d/y'}}</h2>
+  <ion-option-button class="button-positive"
+                       ng-click="join(wallets[$index].$id)">
+      join
+    </ion-option-button>
+  <ion-option-button class="button-info"
+                       ng-click="delete(wallets[$index].$id)">
+      Delete
+    </ion-option-button>
+  </ion-item>
+</ion-list>
 
-</a>
   <!-- <div class="col col-50" ng-if="$index < wallets.length">
     <img ng-click='view()' id="{{wallets[$index].$id}}" ui-sref="show({id: '{{wallets[$index].$id}}' })" ng-src="data:image/jpeg;base64,{{wallets[$index].image}}" width="100%" />
     <div ng-click="edit($event)" id="{{wallets[$index].$id}}" style="background:grey" class="col text-center">

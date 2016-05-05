@@ -48,6 +48,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'signup.html',
     controller: 'loginCtrl'
   })
+  $stateProvider.state('createWallet', {
+    url: '/createWallet.html',
+    templateUrl: 'createWallet.html',
+    controller: 'loginCtrl'
+  })
   $stateProvider.state('login', {
     url: '/login',
     templateUrl: 'login.html',
