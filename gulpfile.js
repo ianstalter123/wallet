@@ -8,6 +8,15 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var karma = require('karma').server;
 
+var jshint = require('gulp-jshint');
+
+
+gulp.task('lint', function() {
+  return gulp.src('./www/js/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'));
+});
+
 var paths = {
   sass: ['./scss/**/*.scss']
 };
