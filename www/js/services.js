@@ -15,10 +15,6 @@ app.factory('authService', function(Firebase,
         $rootScope.profileImageURL = data.google.profileImageURL;
         $rootScope.id = data.id;
 
-
-
-
-
     } else if (data) {
         $rootScope.loggedIn = true;
         $rootScope.current = data.password.email;
@@ -28,7 +24,6 @@ app.factory('authService', function(Firebase,
     } else {
         $rootScope.loggedIn = false;
     }
-
 
     return {
         authData: data,

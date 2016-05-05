@@ -1,9 +1,12 @@
-app.controller('editCtrl', function($scope, $state, $stateParams,$firebaseArray,$firebaseObject,$ionicActionSheet,$cordovaCamera) {
+app.controller('editCtrl', function($scope, $state, $stateParams, $firebaseArray, $firebaseObject, $ionicActionSheet, $cordovaCamera) {
 
-  $scope.update = function(name,birthday) {
-      //console.log(birthday);
-      //console.log(name);
-      galRef.update({ name: name, birthday: birthday });
+    $scope.update = function(name, birthday) {
+        //console.log(birthday);
+        //console.log(name);
+        galRef.update({
+            name: name,
+            birthday: birthday
+        });
     }
 
     $scope.id = $stateParams.id; //getting fooVal
@@ -12,8 +15,8 @@ app.controller('editCtrl', function($scope, $state, $stateParams,$firebaseArray,
     $scope.wallet = $firebaseObject(galRef);
     console.log('in edit!');
     $scope.wallet.$loaded().then(function() {
-      $scope.name = $scope.wallet.name;
-      $scope.image = $scope.wallet.image;
-      $scope.birthday = new Date($scope.wallet.birthday);
+        $scope.name = $scope.wallet.name;
+        $scope.image = $scope.wallet.image;
+        $scope.birthday = new Date($scope.wallet.birthday);
     });
-  })
+})

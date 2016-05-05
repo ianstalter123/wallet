@@ -1,26 +1,24 @@
- <ion-pane>
- <div class="bar bar-header">
-  <button ui-sref="main" class="button button-full button-positive">
-    Back to albums
-  </button>
-</div>
-
-<ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
-<!--images here need to be loaded from the id -->
-<div class="row" ng-repeat="image in images" ng-if="$index % 3 === 0">
-  <div class="col col-33" ng-if="$index < images.length">
-    <img ui-sref="view({wallet_id: '{{id}}', image_id: $index})" ng-src="data:image/jpeg;base64,{{images[$index].image}}" width="100%" />
-  </div>
-  <div class="col col-33" ng-if="$index + 1 < images.length">
-    <img ui-sref="view({wallet_id: '{{id}}', image_id: $index+1 })" ng-src="data:image/jpeg;base64,{{images[$index+1].image}}" width="100%" />
-  </div>
-  <div class="col col-33" ng-if="$index + 2 < images.length">
-    <img ui-sref="view({wallet_id: '{{id}}', image_id: $index+2 })" ng-src="data:image/jpeg;base64,{{images[$index+2].image}}" width="100%" />
-  </div>
-</div>
-
-</ion-content>
+<ion-pane>
+    <div class="bar bar-header">
+        <button ui-sref="main" class="button button-full button-positive">
+            Back to albums
+        </button>
+    </div>
+    <ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
+        <!--images here need to be loaded from the id -->
+        <div class="row" ng-repeat="image in images" ng-if="$index % 3 === 0">
+            <div class="col col-33" ng-if="$index < images.length">
+                <img ui-sref="view({wallet_id: '{{id}}', image_id: $index})" ng-src="data:image/jpeg;base64,{{images[$index].image}}" width="100%" />
+            </div>
+            <div class="col col-33" ng-if="$index + 1 < images.length">
+                <img ui-sref="view({wallet_id: '{{id}}', image_id: $index+1 })" ng-src="data:image/jpeg;base64,{{images[$index+1].image}}" width="100%" />
+            </div>
+            <div class="col col-33" ng-if="$index + 2 < images.length">
+                <img ui-sref="view({wallet_id: '{{id}}', image_id: $index+2 })" ng-src="data:image/jpeg;base64,{{images[$index+2].image}}" width="100%" />
+            </div>
+        </div>
+    </ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">
-  <div ng-click="addImage()" class="title">Add image</div>
+    <div ng-click="addImage()" class="title">Add image</div>
 </div>

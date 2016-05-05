@@ -14,8 +14,6 @@ app.controller('loginCtrl',
         HttpService,
         $timeout) {
 
-
-
         $scope.item = {};
         //console.log(authService.authData.uid);
         var ref = new Firebase(FirebaseConfig.base + "/wallets/");

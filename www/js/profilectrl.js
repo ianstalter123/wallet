@@ -20,8 +20,8 @@ app.controller('profileCtrl',
             $scope.id = $rootScope.id;
 
             ref2.$loaded(function(data) {
-             $scope.name = data.settings.name;
-             $scope.phone = data.settings.phone;
+                $scope.name = data.settings.name;
+                $scope.phone = data.settings.phone;
             })
             ref.orderByChild("uid").equalTo($scope.id).on("child_added", function(snapshot) {
                 $scope.key = snapshot.key();
