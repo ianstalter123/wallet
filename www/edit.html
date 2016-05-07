@@ -1,9 +1,8 @@
-<ion-pane>
-    <div class="bar bar-header">
-        <button ui-sref="main" class="button button-full button-positive">
-            Back to wallets
-        </button>
-    </div>
+<ion-view view-title="EDIT" cache-view="false">
+<ion-nav-bar class="bar-energized">
+<ion-nav-back-button >
+</ion-nav-back-button>
+</ion-nav-bar>
     <ion-content>
         <div class="list card">
             <div class="item item-image">
@@ -17,7 +16,15 @@
                 <span class="input-label">Birthdate</span>
                 <input ng-model="birthday" type="date" value="{{birthday}}">
             </label>
-            <button ng-click="update(name,birthday)" class="button button-full button-positive">
+            <label class="item item-input">
+                <span class="input-label">Favorite Food</span>
+                <input ng-model="food" type="text" value="{{food}}">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Favorite Activity</span>
+                <input ng-model="activity" type="text" value="{{activity}}">
+            </label>
+            <button ng-click="update(name,birthday,food,activity)" class="button button-full button-positive">
                 Update this wallet
             </button>
         </div>

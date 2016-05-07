@@ -1,4 +1,7 @@
-app.factory('authService', function (Firebase, $firebaseAuth, $rootScope, FirebaseConfig) {
+angular.module('baby.services', [])
+
+
+.factory('authService', function (Firebase, $firebaseAuth, $rootScope, FirebaseConfig) {
   var ref = new Firebase(FirebaseConfig.base);
   var obj = $firebaseAuth(ref);
   var data = obj.$getAuth();
@@ -22,7 +25,12 @@ app.factory('authService', function (Firebase, $firebaseAuth, $rootScope, Fireba
     authData: data,
     loggedIn: 'false'
   };
-}).service('HttpService', [
+})
+.factory('DB', function (Firebase, $firebaseAuth, $rootScope, FirebaseConfig) {
+  return new Firebase(FirebaseConfig.base);
+})
+
+.service('HttpService', [
   '$http',
   '$ionicLoading',
   '$ionicPopup',

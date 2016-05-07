@@ -1,0 +1,37 @@
+<ion-view view-title="INFO" cache-view="false">
+<ion-nav-bar class="bar-energized">
+<ion-nav-back-button >
+</ion-nav-back-button>
+</ion-nav-bar>
+    <ion-content>
+
+        <div class="list card">
+            <div class="item item-image">
+                <img src="data:image/jpeg;base64,{{profile.image}}">
+            </div>
+            <label class="item item-input">
+                <span class="input-label">Parent</span>
+                <span class="input-label">{{name}}</span>
+
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Birthdate</span>
+                <span class="input-label">{{profile.birthday | date}}</span>
+
+            </label>
+             <label class="item item-input">
+                <span class="input-label">Food</span>
+                <span class="input-label">{{profile.food }}</span>
+
+            </label>
+             <label class="item item-input">
+                <span class="input-label">Activity</span>
+                <span class="input-label">{{profile.activity }}</span>
+
+            </label>
+        </div>
+    </ion-content>
+</ion-pane>
+<div class="bar bar-footer bar-balanced">
+    <div class="title">{{profile.name}}</div>
+</div>

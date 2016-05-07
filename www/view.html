@@ -1,10 +1,9 @@
-<ion-pane on-swipe-right="swipeleftAction()">
-    <div class="bar bar-header">
-        <button ui-sref="show({id: '{{wallet}}' })" class="button button-full button-positive">
-            Back to show
-        </button>
-    </div>
-    <ion-content>
+<ion-view view-title="VIEW" cache-view="false">
+<ion-nav-bar class="bar-energized">
+<ion-nav-back-button >
+</ion-nav-back-button>
+</ion-nav-bar>
+    <ion-content on-swipe-right="swipeleftAction()">
         <div class="list card">
             <div class="item item-image">
                 <img ng-click="share()" src="data:image/jpeg;base64,{{images[index].image}}">

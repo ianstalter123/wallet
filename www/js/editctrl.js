@@ -1,21 +1,24 @@
-app.controller('editCtrl', function ($scope, $state, $stateParams, $firebaseArray, $firebaseObject, $ionicActionSheet, $cordovaCamera) {
-  $scope.update = function (name, birthday) {
+app.controller('editCtrl', function ($scope,DB, $state, $stateParams, $firebaseArray, $firebaseObject, $ionicActionSheet, $cordovaCamera) {
+  $scope.update = function (name, birthday,food,activity) {
     //console.log(birthday);
     //console.log(name);
-    galRef.update({
+    DB.child('wallets').child($scope.id).update({
       name: name,
-      birthday: birthday
+      birthday: birthday,
+      food: food,
+      activity: activity
     });
   };
   $scope.id = $stateParams.id;
   //getting fooVal
-  var galRef = new Firebase('https://crackling-fire-8350.firebaseio.com/wallets/' + $scope.id);
-  console.log(galRef.child('name'));
-  $scope.wallet = $firebaseObject(galRef);
-  console.log('in edit!');
-  $scope.wallet.$loaded().then(function () {
-    $scope.name = $scope.wallet.name;
-    $scope.image = $scope.wallet.image;
-    $scope.birthday = new Date($scope.wallet.birthday);
+  var wallet = DB.child('wallets').child($scope.id);
+
+  wallet.on('value',function (valSnap) {
+    console.log(valSnap.val());
+    $scope.name = valSnap.val().name;
+    $scope.image = valSnap.val().image;
+    $scope.food = valSnap.val().food;
+    $scope.activity = valSnap.val().activity;
+    $scope.birthday = new Date(valSnap.val().birthday);
   });
 });

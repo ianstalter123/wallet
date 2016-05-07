@@ -1,9 +1,11 @@
-<ion-pane>
-    <div class="bar bar-header">
-        <button ui-sref="main" class="button button-full button-positive">
-            Back to albums
-        </button>
-    </div>
+<ion-view view-title="SHOW" cache-view="false">
+<ion-nav-bar class="bar-energized">
+<ion-nav-back-button >
+</ion-nav-back-button>
+<ion-nav-buttons side="secondary">
+<a class="button button-icon button-clear ion-plus-round" ng-click="addImage()"></a>
+</ion-nav-buttons>
+</ion-nav-bar>
     <ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
         <!--images here need to be loaded from the id -->
         <div class="row" ng-repeat="image in images" ng-if="$index % 3 === 0">
@@ -20,5 +22,5 @@
     </ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">
-    <div ng-click="addImage()" class="title">Add image</div>
+
 </div>

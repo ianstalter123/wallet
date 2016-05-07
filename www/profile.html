@@ -1,22 +1,25 @@
-<ion-pane on-swipe-right="swipeleftAction()">
-    <div class="bar bar-header">
-        <button ui-sref="start" class="button button-full button-positive">
-            Back to start
-        </button>
-    </div>
-    <ion-content class="list-inset">
-        <div class="height-20"></div>
-        <div class="height-20"></div>
+<ion-view view-title="PROFILE" cache-view="false">
+<ion-nav-bar class="bar-energized">
+<ion-nav-back-button >
+</ion-nav-back-button>
+</ion-nav-bar>
+    <ion-content on-swipe-right="swipeleftAction()" class="list-inset">
+
         <h1 style="text-align:center">{{name}}</h1>
         <h3 style="text-align:center">{{phone}}</h3>
-        <a class="item item-thumbnail-left" href="#">
-            <img src="{{profileImageURL}}">
-            <h2>{{user}}</h2>
-        </a>
-        <a ng-show="profile" class="item item-thumbnail-left" ui-sref="edit({id: wid})">
+
+        <a ng-show="profile" class="item item-thumbnail-left" ui-sref="edit({id: walletId})">
             <img src="data:image/jpeg;base64,{{profile.image}}">
             <h2>{{profile.name}}</h2>
         </a>
+        <h4 ng-if="joined" style= "text-align:center">Following</h4>
+         <ion-list style="list-inset">
+              <ion-item ng-repeat="(item,value) in joined">
+                <span
+                ng-click='viewFollower(item)'>{{value.name}}</span>
+
+              </ion-item>
+            </ion-list>
     </ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">

@@ -6,8 +6,9 @@ var app = angular.module('starter', [
   'ionic',
   'wallet.config',
   'ngCordova',
-  'firebase',
-  'main.controller'
+  'main.controller',
+  'baby.services',
+  'firebase'
 ]);
 app.config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -55,6 +56,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     url: '/profile',
     templateUrl: 'profile.html',
     controller: 'profileCtrl'
+  });
+  $stateProvider.state('info', {
+    url: '/info/:id/:wid',
+    templateUrl: 'info.html',
+    controller: 'infoCtrl'
   });
   $stateProvider.state('chat', {
     url: '/chat',

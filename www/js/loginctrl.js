@@ -11,11 +11,12 @@ app.controller('loginCtrl', function($scope,
     $firebaseAuth,
     authService,
     HttpService,
-    $timeout) {
+    $timeout,
+    DB) {
 
     $scope.item = {};
     //console.log(authService.authData.uid);
-    var ref = new Firebase(FirebaseConfig.base + '/wallets/');
+    var ref = DB.child('wallets');
     $scope.wallets = $firebaseArray(ref);
     console.log(FirebaseConfig.base);
     $ionicSlideBoxDelegate.update();
@@ -55,15 +56,17 @@ app.controller('loginCtrl', function($scope,
     };
     $scope.setSettings = function(userPath) {
         console.log('setting up user', userPath);
-        var userRef = FirebaseConfig.base.child('users').child(userPath).child('settings');
+        var userRef = DB
+                     .child('users')
+                     .child(userPath)
+                     .child('settings');
         var userObj = { 'email': $scope.email };
         userRef.set(userObj);
         $state.go('start');
     };
     $scope.signupEmail = function(email, password, phone, name) {
-        var ref = new Firebase(FirebaseConfig.base);
         console.log('here ' + email);
-        ref.createUser({
+        DB.createUser({
             email: email,
             password: password
         }, function(error, userData) {
@@ -71,16 +74,17 @@ app.controller('loginCtrl', function($scope,
                 alert('Error creating user - please use an email:', error);
             } else {
                 console.log('Successfully created user account with uid:', userData.uid);
-                var userRef = 'https://crackling-fire-8350.firebaseio.com/users/' + userData.uid + '/settings';
-                myRef = new Firebase(userRef);
-                console.log(userRef);
+                var userRef =  DB.child('users')
+                               .child(userData.uid)
+                               .child('settings');
+
                 var userObj = {
                     'email': email,
                     'phone': phone,
                     'name': name
                 };
                 console.log(userObj);
-                myRef.set(userObj);
+                userRef.set(userObj);
                 var goWallet = function() {
                     $state.go('createWallet');
                 };
@@ -104,8 +108,7 @@ app.controller('loginCtrl', function($scope,
     };
     $scope.loginEmail = function(email, password, callback) {
         $rootScope.profileImageURL = '';
-        var ref = new Firebase(FirebaseConfig.base);
-        ref.authWithPassword({
+        DB.authWithPassword({
             email: email,
             password: password
         }, function(error, authData) {
@@ -114,8 +117,7 @@ app.controller('loginCtrl', function($scope,
             } else {
                 console.log('Authenticated successfully with payload:', authData);
                 $rootScope.loggedIn = true;
-                var ref = new Firebase(FirebaseConfig.base);
-                var authData = ref.getAuth();
+                var authData = DB.getAuth();
                 if (authData) {
                     console.log('Authenticated user:', authData);
                     $rootScope.user = authData.password.email;
@@ -168,6 +170,7 @@ app.controller('loginCtrl', function($scope,
     };
     $scope.createWallet = function(bday, name, image) {
         console.log(bday);
+
         $scope.wallets.$add({
             image: $scope.loadimage,
             uid: $rootScope.id,
