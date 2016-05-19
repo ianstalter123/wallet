@@ -1,12 +1,12 @@
 <ion-view view-title="SHOW" cache-view="false">
-<ion-nav-bar class="bar-energized">
+<ion-nav-bar class="bar-positive">
 <ion-nav-back-button >
 </ion-nav-back-button>
 <ion-nav-buttons side="secondary">
 <a class="button button-icon button-clear ion-plus-round" ng-click="addImage()"></a>
 </ion-nav-buttons>
 </ion-nav-bar>
-    <ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
+    <ion-content style="background-color: #f2f2f4;" class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
         <!--images here need to be loaded from the id -->
         <div class="row" ng-repeat="image in images" ng-if="$index % 3 === 0">
             <div class="col col-33" ng-if="$index < images.length">
@@ -21,6 +21,4 @@
         </div>
     </ion-content>
 </ion-pane>
-<div class="bar bar-footer bar-balanced">
 
-</div>

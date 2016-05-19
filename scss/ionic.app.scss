@@ -20,4 +20,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
+ion-content {
+  background-color: #f2f2f4;
+}

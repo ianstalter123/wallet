@@ -1,26 +1,32 @@
 <ion-view view-title="PROFILE" cache-view="false">
-<ion-nav-bar class="bar-energized">
-<ion-nav-back-button >
+<ion-nav-bar class="bar-positive">
+<ion-nav-back-button>
 </ion-nav-back-button>
 </ion-nav-bar>
-    <ion-content on-swipe-right="swipeleftAction()" class="list-inset">
-
-        <h1 style="text-align:center">{{name}}</h1>
-        <h3 style="text-align:center">{{phone}}</h3>
-
-        <a ng-show="profile" class="item item-thumbnail-left" ui-sref="edit({id: walletId})">
-            <img src="data:image/jpeg;base64,{{profile.image}}">
-            <h2>{{profile.name}}</h2>
-        </a>
-        <h4 ng-if="joined" style= "text-align:center">Following</h4>
-         <ion-list style="list-inset">
-              <ion-item ng-repeat="(item,value) in joined">
-                <span
-                ng-click='viewFollower(item)'>{{value.name}}</span>
-
-              </ion-item>
-            </ion-list>
-    </ion-content>
-</ion-pane>
-<div class="bar bar-footer bar-balanced">
+<ion-content style="background-color: #f2f2f4;">
+<div style="background:white" class="row">
+  <div style="text-align:center;
+    line-height: 50%;
+    padding: 5%" class="col">
+    <img style="width: 80px;
+    height:80px;
+    margin-top: 10px;
+    border-radius:100%;
+    margin-left:auto;
+    margin-right:auto" ng-src="data:image/jpeg;base64,{{profile.image}}">
+    <h3 style="margin-top:5px">
+    {{profile.name}}
+    </h3>
+    <a ui-sref="edit({id: walletId})" style="text-align:center">edit profile </a>
+  </div>
 </div>
+</div>
+<div style="border-top:1px solid #ddd;background-color: " class="height-20"></div>
+<h4 ng-if="joined" style="text-align:center">Following</h4>
+<ion-list style="list-inset">
+<ion-item ng-click='viewFollower(item)' ng-repeat="(item,value) in joined">
+<span>{{value.name}}</span>
+</ion-item>
+</ion-list>
+</ion-content>
+</ion-modal-view>

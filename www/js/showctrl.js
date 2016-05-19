@@ -16,7 +16,7 @@ app.controller('showCtrl', function ($scope, $ionicPopup, FirebaseConfig, $fireb
             { text: 'Camera' },
             { text: 'Gallery' }
           ],
-          titleText: 'Create Baby Wallet',
+          titleText: 'Add Photo',
           cancelText: 'Cancel',
           buttonClicked: function (index) {
             if (index === 0) {

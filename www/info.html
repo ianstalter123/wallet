@@ -1,37 +1,44 @@
 <ion-view view-title="INFO" cache-view="false">
-<ion-nav-bar class="bar-energized">
+<ion-nav-bar class="bar-positive">
 <ion-nav-back-button >
 </ion-nav-back-button>
 </ion-nav-bar>
-    <ion-content>
-
-        <div class="list card">
-            <div class="item item-image">
-                <img src="data:image/jpeg;base64,{{profile.image}}">
-            </div>
-            <label class="item item-input">
-                <span class="input-label">Parent</span>
-                <span class="input-label">{{name}}</span>
-
-            </label>
-            <label class="item item-input">
-                <span class="input-label">Birthdate</span>
-                <span class="input-label">{{profile.birthday | date}}</span>
-
-            </label>
-             <label class="item item-input">
-                <span class="input-label">Food</span>
-                <span class="input-label">{{profile.food }}</span>
-
-            </label>
-             <label class="item item-input">
-                <span class="input-label">Activity</span>
-                <span class="input-label">{{profile.activity }}</span>
-
-            </label>
-        </div>
-    </ion-content>
+<ion-content style="background-color: #f2f2f4;">
+<div style="background:white" class="row">
+  <div style="text-align:center;
+    line-height: 50%;
+    padding: 5%" class="col">
+    <img style="width: 80px;
+    height:80px;
+    margin-top: 10px;
+    border-radius:100%;
+    margin-left:auto;
+    margin-right:auto" src="data:image/jpeg;base64,{{profile.image}}">
+    <h3 style="margin-top:5px">
+    {{profile.name}}
+    </h3>
+  </div>
+</div>
+<div class="list card">
+  <label class="item item-input">
+    <span class="input-label">Parent</span>
+    <span class="input-label">{{name}}</span>
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Birthdate</span>
+    <span class="input-label">{{profile.birthday | date}}</span>
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Food</span>
+    <span class="input-label">{{profile.food }}</span>
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Activity</span>
+    <span class="input-label">{{profile.activity }}</span>
+  </label>
+</div>
+</ion-content>
 </ion-pane>
 <div class="bar bar-footer bar-balanced">
-    <div class="title">{{profile.name}}</div>
+  <div class="title">{{profile.name}}</div>
 </div>

@@ -12,17 +12,19 @@ app.controller('loginCtrl', function($scope,
     authService,
     HttpService,
     $timeout,
+    $ionicHistory,
     DB) {
-
     $scope.item = {};
     //console.log(authService.authData.uid);
     var ref = DB.child('wallets');
     $scope.wallets = $firebaseArray(ref);
     console.log(FirebaseConfig.base);
     $ionicSlideBoxDelegate.update();
+
     $scope.goProfile = function() {
         $state.go('profile');
     };
+
     $scope.chat = function() {
         if ($rootScope.loggedIn === false) {
             HttpService.alertPopup('ERROR', 'Not logged in');
@@ -57,10 +59,12 @@ app.controller('loginCtrl', function($scope,
     $scope.setSettings = function(userPath) {
         console.log('setting up user', userPath);
         var userRef = DB
-                     .child('users')
-                     .child(userPath)
-                     .child('settings');
-        var userObj = { 'email': $scope.email };
+            .child('users')
+            .child(userPath)
+            .child('settings');
+        var userObj = {
+            'email': $scope.email
+        };
         userRef.set(userObj);
         $state.go('start');
     };
@@ -74,10 +78,9 @@ app.controller('loginCtrl', function($scope,
                 alert('Error creating user - please use an email:', error);
             } else {
                 console.log('Successfully created user account with uid:', userData.uid);
-                var userRef =  DB.child('users')
-                               .child(userData.uid)
-                               .child('settings');
-
+                var userRef = DB.child('users')
+                    .child(userData.uid)
+                    .child('settings');
                 var userObj = {
                     'email': email,
                     'phone': phone,
@@ -160,17 +163,18 @@ app.controller('loginCtrl', function($scope,
             targetHeight: 500,
             saveToPhotoAlbum: false
         };
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-            //need to add an image to the correct wallet here
-            //how do I guarantee I'm selecting the CORRECT WALLET!
-            savePicture(imageData);
-        }, function(error) {
-            console.error(error);
-        });
+        $cordovaCamera
+            .getPicture(options)
+            .then(function(imageData) {
+                //need to add an image to the correct wallet here
+                //how do I guarantee I'm selecting the CORRECT WALLET!
+                savePicture(imageData);
+            }, function(error) {
+                console.error(error);
+            });
     };
     $scope.createWallet = function(bday, name, image) {
         console.log(bday);
-
         $scope.wallets.$add({
             image: $scope.loadimage,
             uid: $rootScope.id,
@@ -183,7 +187,26 @@ app.controller('loginCtrl', function($scope,
             $scope.loadimage = '';
             name = '';
             birthday = '';
-            $state.go('main');
+
+            var onComplete = function(error) {
+                if (error) {
+                    console.log('Synchronization failed');
+                } else {
+                    console.log('Synchronization succeeded');
+                    $ionicHistory.nextViewOptions({
+                        disableAnimate: true,
+                        disableBack: true
+                    });
+                    $state.go('main');
+                }
+            };
+
+            DB
+                .child('users')
+                .child($rootScope.id)
+                .child('settings')
+                .child('walletid')
+                .set(data.key(), onComplete);
         });
     };
     $scope.logOut = function() {
