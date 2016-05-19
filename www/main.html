@@ -6,16 +6,21 @@
 <a class="button button-icon button-clear ion-plus-round" ng-click="showDetails()"></a>
 </ion-nav-buttons>
 </ion-nav-bar>
-<ion-content class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
+<ion-content style="background-color: #f2f2f4;" class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
 <div class="row">
   <ion-list style="width:100%">
-  <ion-item style="width:100%" ui-sref="show({id: '{{wallets[$index].$id}}' })" class="item item-thumbnail-left" ng-repeat="wallet in wallets">
-  <img style="border-radius:100%;" ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
+
+  <ion-item style="width:100%" class="item item-thumbnail-left animated fadeIn" ng-repeat="wallet in wallets">
+  <img ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
+
   <h2 ng-click="edit($event)">
   {{wallets[$index].name}}
   </h2>
   <h2>
   {{wallets[$index].birthday | date:'M/d/y'}}
+  <i id="{{wallets[$index].$id}}" ng-click="giveLove($event)" style="font-size:30px" class="icon ion-heart"></i>
+  {{wallets[$index].likes.count}}
+  <i ui-sref="show({id: '{{wallets[$index].$id}}' })"  style="font-size:30px" class="icon ion-happy-outline"></i>
   </h2>
   <ion-option-button class="button-energized" ng-click="info(wallets[$index].$id)">
   info

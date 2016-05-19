@@ -13,7 +13,7 @@ var app = angular.module('starter', [
 app.config(function ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('start', {
-    controller: 'loginCtrl',
+    controller: 'startCtrl',
     url: '/',
     templateUrl: 'start.html'
   });
@@ -45,7 +45,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('createWallet', {
     url: '/createWallet.html',
     templateUrl: 'createWallet.html',
-    controller: 'loginCtrl'
+    controller: 'createWalletCtrl'
   });
   $stateProvider.state('login', {
     url: '/login',

@@ -1,10 +1,9 @@
-<ion-pane>
-    <div class="bar bar-positive">
-        <button ui-sref="start" class="button button-full button-positive">
-            Back to start
-        </button>
-    </div>
-    <ion-content class="has-header">
+<ion-view view-title="LOGIN" cache-view="false">
+<ion-nav-bar class="bar-positive">
+<ion-nav-back-button >
+</ion-nav-back-button>
+</ion-nav-bar>
+    <ion-content style="background-color: #f2f2f4;" class="has-header">
         <div class="list list-inset">
             <label class="item item-input">
                 <input type="text" placeholder="Username" ng-model="email" ng-click="email = ''">
@@ -18,7 +17,7 @@
             Google Login
         </button>
     </ion-content>
-</ion-pane>
+
 <div class="bar bar-footer bar-balanced">
     <div class="title">Baby Wallet V0.06</div>
 </div>
