@@ -1,34 +1,73 @@
-angular.module('baby.services', [])
+angular.module('wallet.services', [])
 
-
-.factory('authService', function (Firebase, $firebaseAuth, $rootScope, FirebaseConfig) {
-  var ref = new Firebase(FirebaseConfig.base);
-  var obj = $firebaseAuth(ref);
-  var data = obj.$getAuth();
-  if (data && data.hasOwnProperty('google')) {
-    $rootScope.loggedIn = true;
-    console.log(data);
-    $rootScope.current = data.google.displayName;
-    $rootScope.user = data.google.displayName;
-    $rootScope.profileImageURL = data.google.profileImageURL;
-    $rootScope.id = data.id;
-  } else if (data) {
-    $rootScope.loggedIn = true;
-    $rootScope.current = data.password.email;
-    $rootScope.user = data.password.email;
-    $rootScope.profileImageURL = data.password.profileImageURL;
-    $rootScope.id = data.uid;
-  } else {
-    $rootScope.loggedIn = false;
-  }
-  return {
-    authData: data,
-    loggedIn: 'false'
-  };
-})
 .factory('DB', function (Firebase, $firebaseAuth, $rootScope, FirebaseConfig) {
   return new Firebase(FirebaseConfig.base);
 })
+
+.factory('User', function(DB, $state, HttpService, $timeout) {
+
+    var baseRef = DB;
+    var user = {};
+
+    console.log("User service initialized");
+
+    function authCallback(auth) {
+      if (auth) {
+        console.log("Authenticated");
+        var email = auth[auth.provider].email;
+        var name;
+
+        if (auth.provider == 'password') {
+          name = email.replace(/@.*/, '');
+        } else {
+          name = auth[auth.provider].displayName;
+        }
+
+        user.profile_image = auth[auth.provider].profileImageURL;
+        user.auth = auth;
+        user.uid = auth.uid;
+        user.email = email;
+        user.name = name;
+
+        user.userPath = 'users/' + auth.uid;
+
+        var settingsRef = baseRef.child('users')
+          .child(auth.uid)
+          .child('settings');
+        var settings = null;
+
+        var changeState = function(snap) {
+   
+        };
+
+        user.promise = settingsRef.once('value')
+
+      } else {
+        //Unauthenticated
+        console.log("Unauthenticated");
+
+
+        delete user.auth;
+        delete user.uid;
+        delete user.email;
+        delete user.name;
+        delete user.userPath;
+        delete user.profile_image;
+
+
+        if (!$state.is('login')) {
+          console.log('going to login state');
+          $state.go('login');
+        }
+      }
+    }
+
+    baseRef.onAuth(authCallback);
+
+    return user;
+
+  })
+
 
 .service('HttpService', [
   '$http',

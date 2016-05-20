@@ -1,4 +1,5 @@
-app.controller('chatCtrl', function ($timeout, $scope, $rootScope, $firebaseAuth, $firebaseArray) {
+angular.module('wallet.controllers')
+.controller('chatCtrl', function ($timeout, $scope, $rootScope, $firebaseAuth, $firebaseArray) {
   console.log('test');
   var authRef = new Firebase('https://crackling-fire-8350.firebaseio.com');
   $scope.authObj = $firebaseAuth(authRef);

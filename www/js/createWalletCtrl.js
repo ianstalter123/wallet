@@ -1,4 +1,5 @@
-app.controller('createWalletCtrl', function($scope,
+angular.module('wallet.controllers')
+.controller('createWalletCtrl', function($scope,
 	FirebaseConfig,
 	$rootScope,
 	$state,

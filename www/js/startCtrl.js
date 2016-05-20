@@ -1,38 +1,43 @@
-app.controller('startCtrl', function($scope,
+angular.module('wallet.controllers')
+.controller('startCtrl', function($scope,
     FirebaseConfig,
     $rootScope,
     $state,
     $firebaseAuth,
     HttpService,
-    DB) {
-
+    DB,
+    User
+    ) {
+    $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
+       if(User.auth) {
+        $scope.loggedIn = true; 
+        $scope.name = User.name;
+        $scope.profileImageURL = User.profile_image;
+    } else {
+        $scope.loggedIn = false;
+    }
+});
+    
     $scope.goProfile = function() {
         $state.go('profile');
     };
 
     $scope.chat = function() {
-        if ($rootScope.loggedIn === false) {
-            HttpService.alertPopup('ERROR', 'Not logged in');
-        } else {
+        if(User.auth) {
             $state.go('chat');
-        }
-    };
-    $scope.main = function() {
-        if ($rootScope.loggedIn === false) {
-            HttpService.alertPopup('ERROR', 'Not logged in');
         } else {
-            $state.go('main');
-        }
-    };
+           HttpService.alertPopup('ERROR', 'Not logged in');
+       }
+   };
+   $scope.main = function() {
+       if(User.auth) {
+        $state.go('main');
+    } else {
+        HttpService.alertPopup('ERROR', 'Not logged in');
+    }
+};
 
-    $scope.logOut = function() {
-        var ref = new Firebase(FirebaseConfig.base);
-        ref.unauth();
-        $rootScope.user = '';
-        $rootScope.loggedIn = false;
-        $rootScope.current = '';
-        $rootScope.profileImageURL = '';
-        $rootScope.id = '';
-        $rootScope.wallet = '';
-    };
+$scope.logOut = function() {
+    DB.unauth();
+};
 });

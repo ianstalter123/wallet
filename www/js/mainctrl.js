@@ -1,4 +1,4 @@
-angular.module('main.controller', [])
+angular.module('wallet.controllers')
 .controller('mainCtrl', function($ionicPopup,
   $timeout,
   $scope,
