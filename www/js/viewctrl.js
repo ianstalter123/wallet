@@ -1,4 +1,6 @@
-app.controller('viewCtrl', function ($scope, $state, $stateParams, $firebaseArray, $firebaseObject, $cordovaInstagram, $ionicViewSwitcher, $cordovaSocialSharing, $rootScope) {
+angular.module('wallet.controllers')
+.controller('viewCtrl', function ($scope, $state, $stateParams, $firebaseArray,
+ $firebaseObject, $cordovaInstagram, $ionicViewSwitcher, $cordovaSocialSharing, $rootScope) {
   console.log('test');
   //console.log($stateParams.image);
   $scope.wallet = $stateParams.wallet_id;

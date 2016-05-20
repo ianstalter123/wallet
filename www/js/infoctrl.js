@@ -1,4 +1,5 @@
-app.controller('infoCtrl', function($state,
+angular.module('wallet.controllers')
+.controller('infoCtrl', function($state,
     $q,
     $scope,
     $rootScope,
@@ -6,7 +7,6 @@ app.controller('infoCtrl', function($state,
     FirebaseConfig,
     $firebaseObject,
     HttpService,
-    authService,
     $stateParams,
      DB) {
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {

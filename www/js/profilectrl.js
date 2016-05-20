@@ -1,11 +1,11 @@
-app.controller('profileCtrl', function($state,
+angular.module('wallet.controllers')
+.controller('profileCtrl', function($state,
     $scope,
     $rootScope,
     $firebaseAuth,
     FirebaseConfig,
     $firebaseObject,
     HttpService,
-    authService,
     DB) {
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
         viewData.enableBack = true;

@@ -1,4 +1,5 @@
-app.controller('editCtrl', function ($scope,DB, $state, $stateParams, $firebaseArray, $firebaseObject, $ionicActionSheet, $cordovaCamera) {
+angular.module('wallet.controllers')
+.controller('editCtrl', function ($scope,DB, $state, $stateParams, $firebaseArray, $firebaseObject, $ionicActionSheet, $cordovaCamera) {
   $scope.update = function (name, birthday,food,activity) {
     //console.log(birthday);
     //console.log(name);

@@ -23,7 +23,7 @@
         </button>
         <a ng-show='loggedIn' class="item item-avatar" ng-click="goProfile()">
             <img src="{{profileImageURL}}">
-            <h2>{{user}}</h2>
+            <h2>{{name}}</h2>
         </a>
         </ion-content>
 </ion-pane>
@@ -35,6 +35,9 @@
         <!-- Tab 2 content -->
     </ion-tab>
     <ion-tab ng-click="main()" ng-show='loggedIn' title="Wallets" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+        <!-- Tab 3 content -->
+    </ion-tab>
+     <ion-tab ng-click="upgrades()" ng-show='loggedIn' title="Upgrades" icon-on="ion-ios-home" icon-off="ion-ios-gear-outline">
         <!-- Tab 3 content -->
     </ion-tab>
 </ion-tabs>

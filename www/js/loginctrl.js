@@ -1,19 +1,14 @@
-app.controller('loginCtrl', function($scope,
+angular.module('wallet.controllers')
+    .controller('loginCtrl', function($scope,
     FirebaseConfig,
     $rootScope,
     $state,
-    $stateParams,
     $firebaseArray,
-    $firebaseObject,
-    $ionicActionSheet,
-    $cordovaCamera,
     $ionicSlideBoxDelegate,
-    $firebaseAuth,
-    authService,
-    HttpService,
-    $timeout,
+    HttpService,  
     $ionicHistory,
-    DB) {
+    DB,
+    User) {
     $scope.item = {};
     //console.log(authService.authData.uid);
     var ref = DB.child('wallets');
@@ -93,7 +88,7 @@ app.controller('loginCtrl', function($scope,
         });
     };
     $scope.loginEmail = function(email, password, callback) {
-        $rootScope.profileImageURL = '';
+        
         DB.authWithPassword({
             email: email,
             password: password
@@ -102,15 +97,8 @@ app.controller('loginCtrl', function($scope,
                 alert('Login Failed!', error);
             } else {
                 HttpService.showTemporaryLoading('Loading...');
-                console.log('Authenticated successfully with payload:', authData);
-                $rootScope.loggedIn = true;
-                var authData = DB.getAuth();
-                if (authData) {
-                    console.log('Authenticated user:', authData);
-                    $rootScope.user = authData.password.email;
-                    $rootScope.profileImageURL = authData.password.profileImageURL;
-                    $rootScope.id = authData.uid;
-                }
+                console.log('Authenticated successfully with payload');
+               
                 if (callback) {
                     callback();
                 } else {

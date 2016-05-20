@@ -1,4 +1,7 @@
-app.controller('showCtrl', function ($scope, $ionicPopup, FirebaseConfig, $firebaseAuth, authService, $state, $rootScope, $stateParams, $firebaseArray, $firebaseObject, $ionicActionSheet, $cordovaCamera) {
+angular.module('wallet.controllers')
+.controller('showCtrl', function ($scope, $ionicPopup, FirebaseConfig,
+ $firebaseAuth,$state, $rootScope, $stateParams, $firebaseArray,
+  $firebaseObject, $ionicActionSheet, $cordovaCamera) {
   //$scope.id = $stateParams.id;
   var ref = new Firebase(FirebaseConfig.base);
   var obj = $firebaseAuth(ref);

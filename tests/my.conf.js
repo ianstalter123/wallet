@@ -14,12 +14,16 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-     files: [
+    files: [
     '../www/lib/angular/angular.js',
-    '../www/js/*.js',
     '../www/lib/angular-mocks/angular-mocks.js',
+    'https://cdn.firebase.com/js/client/2.4.2/firebase.js',
+    'https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js',
+    '../www/js/controller/*.js',
+    '../www/js/*.js',
     '**/*tests.js'
     ],
+
 
     // list of files to exclude
     exclude: [
@@ -71,5 +75,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
+})
 }
