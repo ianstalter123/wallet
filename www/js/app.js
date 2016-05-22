@@ -67,6 +67,11 @@ angular.module('wallet', [
     templateUrl: 'chat.html',
     controller: 'chatCtrl'
   });
+   $stateProvider.state('upgrades', {
+    url: '/upgrades',
+    templateUrl: 'upgrades.html',
+    controller: 'upgradesCtrl'
+  });
 })
 .run(function ($ionicPlatform) {
   $ionicPlatform.ready(function () {

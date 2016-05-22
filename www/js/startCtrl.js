@@ -10,14 +10,14 @@ angular.module('wallet.controllers')
     ) {
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
        if(User.auth) {
-        $scope.loggedIn = true; 
+        $scope.loggedIn = true;
         $scope.name = User.name;
         $scope.profileImageURL = User.profile_image;
     } else {
         $scope.loggedIn = false;
     }
 });
-    
+
     $scope.goProfile = function() {
         $state.go('profile');
     };
