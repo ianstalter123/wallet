@@ -42,7 +42,30 @@ angular.module('wallet.services', [])
             user.name = name;
             user.wallet = {};
             user.joined = {};
+            var mine = [];
+            var wallets = [];
+            var walletRef = DB.child('wallets');
+            walletRef.once("value").then(function(snapshot) {
+                //console.log('data1:', snapshot.val());
+                angular.forEach(snapshot.val(), function(wallet, key) {
+                    if (wallet.uid !== user.uid) {
+                        var betterWallet = {};
+                        betterWallet = wallet;
+                        betterWallet.$id = key;
+                        wallets.push(betterWallet);
+                    } else if (wallet.uid === user.uid) {
+                        //console.log('match',wallet.uid);
+                        mine.push(wallet);
+                        mine[mine.length - 1].$id = key;
+                    }
+                });
+                for (var i = 0; i < mine.length; i++) {
+                    wallets.unshift(mine[i]);
+                }
 
+                //console.log('ordered wallets', wallets);
+                user.wallets = wallets;
+            })
 
             user.userPath = 'users/' + auth.uid;
 
@@ -54,63 +77,64 @@ angular.module('wallet.services', [])
                 .child(auth.uid)
                 .child('wallet');
 
-            baseRef.child('users')
-                .child(auth.uid)
-                .child('wallets')
-                .once('value')
-                .then(function(valsnap) {
-                    if (valsnap.exists()) {
-                        user.joined = valsnap.val().wallets;
-                    }
-                })
-
             settingsRef.once('value').then(function(snap) {
-              if(snap.child('walletid').exists()) {
-                user.wallet.id = snap.val().walletid;
-                DB.child('wallets').child(user.wallet.id)
-                    .once('value', function(walsnap) {
-                        user.wallet.image = walsnap.val().image;
-                        user.wallet.name = walsnap.val().name;
-                        console.log(user.wallet.name);
-                    })
-                  }
+                if (snap.child('walletid').exists()) {
+                    console.log('walletid', snap.val());
+                    user.wallet.id = snap.val().walletid;
+                    DB.child('wallets').child(user.wallet.id)
+                        .once('value', function(walsnap) {
+                            user.wallet.food = walsnap.val().food;
+                            user.wallet.activity = walsnap.val().activity;
+                            user.wallet.birthday = walsnap.val().birthday;
+                            user.wallet.image = walsnap.val().image;
+                            user.wallet.name = walsnap.val().name;
+                        })
+                }
             })
-
 
             var settings = null;
 
             var changeState = function(snap) {
 
-            };
+                if (snap.exists()) {
+                    console.log("updating settings snapshot");
 
-            user.promise = settingsRef.once('value')
+                    $state.go('app.start');
+                    DB.unauth();
+                } else {
+                    $state.go('signup');
+                    //TODO: @ian  Create the user object pick data from the google object to set
 
-        } else {
-            //Unauthenticated
-            console.log("Unauthenticated");
-
-
-            delete user.auth;
-            delete user.uid;
-            delete user.email;
-            delete user.name;
-            delete user.userPath;
-            delete user.profile_image;
-            delete user.wallet;
-            delete user.joined;
-
-
-
-            if (!$state.is('login')) {
-                console.log('going to login state');
-                $state.go('login');
+                }
             }
+
+        user.promise = settingsRef.once('value')
+            // .then(changeState);
+
+      } else {
+        //Unauthenticated
+        console.log("Unauthenticated");
+
+        delete user.auth;
+        delete user.uid;
+        delete user.email;
+        delete user.name;
+        delete user.userPath;
+        delete user.profile_image;
+        delete user.wallet;
+        delete user.wallets;
+        delete user.joined;
+
+        if (!$state.is('login')) {
+            console.log('going to login state');
+            $state.go('login');
         }
     }
+}
 
-    baseRef.onAuth(authCallback);
+baseRef.onAuth(authCallback);
 
-    return user;
+return user;
 
 })
 

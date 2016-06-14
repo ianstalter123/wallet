@@ -1,0 +1,65 @@
+<ion-side-menus enable-menu-with-back-views="true">
+
+  <ion-side-menu-content>
+
+    <ion-nav-view name="menuContent">
+    </ion-nav-view>
+
+    </ion-side-menu-content>
+
+  <ion-side-menu side="left" expose-aside-when="large" >
+
+    <ion-header-bar class="av-menu-header">
+        <a class="item-avatar" ng-clear ng-click="go('myitems')">
+            <img ng-src="{{profile_image}}">
+            <h2>{{name}} </h2>
+            <p>{{location}}</p>
+        </a>
+    </ion-header-bar>
+
+    <ion-content class="av-menu-content" scroll=false>
+      <ion-list>
+        <ion-item menu-close ng-click="openModal('templates/payment/main.html')" >
+          <i class="fa fa-credit-card"></i>
+          PAYMENT
+        </ion-item>
+        <ion-item menu-close ng-click="openModal('templates/history/main.html')" >
+          <i class="fa fa-history"></i>
+          HISTORY
+        </ion-item>
+        <ion-item menu-close ng-click="openModal('templates/freeGroceries/main.html')">
+          <i class="fa fa-share-alt"></i>
+          FREE GROCERIES
+        </ion-item>
+        <ion-item menu-close ng-click="showConversation()">
+          <i class="fa fa-life-buoy"></i>
+          HELP
+        </ion-item>
+        <ion-item menu-close ng-click="openModal('templates/notifications/main.html')">
+          <i class="fa fa-bell-o"></i>
+          NOTIFICATIONS
+        </ion-item>
+        <ion-item menu-close ng-click="openModal('templates/settings/main.html')">
+          <i class="fa fa-gear"></i>
+          SETTINGS
+        </ion-item>
+        <ion-item menu-close ng-click="go('myitems')">
+            <i class="fa fa-table"></i>
+            MY ITEMS
+        </ion-item>
+        <ion-item menu-close ng-click="go('employee')">
+            <i class="fa fa-user"></i>
+            EMPLOYEES
+        </ion-item>
+        <ion-item menu-close ng-click="doLogout()">
+          <i class="fa fa-sign-out"></i>
+          SIGN OUT
+        </ion-item>
+        <ion-item menu-close ng-click="openModal('templates/about/main.html')">
+            About
+        </ion-item>
+
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

@@ -13,7 +13,7 @@ angular.module('wallet.controllers')
         //console.log(authService.authData.uid);
         var ref = DB.child('wallets');
         $scope.wallets = $firebaseArray(ref);
-        console.log(FirebaseConfig.base);
+        //console.log(FirebaseConfig.base);
         $ionicSlideBoxDelegate.update();
 
 
@@ -25,7 +25,7 @@ angular.module('wallet.controllers')
                     alert('Login Failed!', error);
                 } else {
                     console.log('Authenticated successfully with payload:', authData);
-                    console.log('Authenticated user:', authData);
+                    //console.log('Authenticated user:', authData);
                     $rootScope.loggedIn = true;
                     $rootScope.user = authData.google.displayName;
                     $rootScope.profileImageURL = authData.google.profileImageURL;
@@ -55,7 +55,7 @@ angular.module('wallet.controllers')
                 if (error) {
                     alert('Error:', error);
                 } else {
-                    console.log('Successfully created user account with uid:', userData.uid);
+                    //console.log('Successfully created user account with uid:', userData.uid);
 
                     var userObj = {
                         'email': email,

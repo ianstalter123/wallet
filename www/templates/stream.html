@@ -1,0 +1,11 @@
+<ion-view view-title="STREAM" cache-view="false">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-content style="background-color: #f2f2f4;">
+        <div class="row" ng-repeat="image in streamImages track by $index">
+        <img ng-src="data:image/jpeg;base64,{{image}}" width="100%" />
+        </div>
+    </ion-content>
+    </ion-modal-view>

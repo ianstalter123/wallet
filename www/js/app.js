@@ -5,87 +5,93 @@
 angular.module('wallet', [
   'ionic',
   'wallet.config',
-  'ngCordova',
   'wallet.controllers',
   'wallet.services',
+  'ngCordova',
   'firebase'
 ])
-.config(function ($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/');
-  $stateProvider.state('start', {
-    controller: 'startCtrl',
-    url: '/',
-    templateUrl: 'start.html'
+  .config(function($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider.state('start', {
+      controller: 'startCtrl',
+      url: '/',
+      templateUrl: 'templates/start.html'
+    })
+      .state('main', {
+        controller: 'mainCtrl',
+        url: '/main',
+        templateUrl: 'templates/main.html'
+      })
+      .state('show', {
+        url: '/show/:id',
+        templateUrl: 'templates/show.html',
+        controller: 'showCtrl'
+      })
+      .state('edit', {
+        url: '/edit/:id',
+        templateUrl: 'templates/edit.html',
+        controller: 'editCtrl'
+      })
+      .state('view', {
+        url: '/view/:wallet_id/:image_id',
+        templateUrl: 'templates/view.html',
+        controller: 'viewCtrl'
+      })
+      .state('signup', {
+        url: '/signup.html',
+        templateUrl: 'templates/signup.html',
+        controller: 'loginCtrl'
+      })
+      .state('createWallet', {
+        url: '/createWallet.html',
+        templateUrl: 'templates/createWallet.html',
+        controller: 'createWalletCtrl'
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+      })
+      .state('profile', {
+        cache: false,
+        url: '/profile',
+        templateUrl: 'templates/profile.html',
+        controller: 'profileCtrl'
+      })
+      .state('info', {
+        url: '/info/:id/:wid',
+        templateUrl: 'templates/info.html',
+        controller: 'infoCtrl'
+      })
+      .state('chat', {
+        url: '/chat',
+        templateUrl: 'templates/chat.html',
+        controller: 'chatCtrl'
+      })
+      .state('upgrades', {
+        url: '/upgrades',
+        templateUrl: 'templates/upgrades.html',
+        controller: 'upgradesCtrl'
+      })
+      .state('stream', {
+        url: '/stream',
+        templateUrl: 'templates/stream.html',
+        controller: 'streamCtrl'
+      })
+  })
+  .run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        // Don't remove this line unless you know what you are doing. It stops the viewport
+        // from snapping when text inputs are focused. Ionic handles this internally for
+        // a much nicer keyboard experience.
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
+      if (window.StatusBar) {
+        StatusBar.styleDefault();
+      }
+    });
   });
-  $stateProvider.state('main', {
-    controller: 'mainCtrl',
-    url: '/main',
-    templateUrl: 'main.html'
-  });
-  $stateProvider.state('show', {
-    url: '/show/:id',
-    templateUrl: 'show.html',
-    controller: 'showCtrl'
-  });
-  $stateProvider.state('edit', {
-    url: '/edit/:id',
-    templateUrl: 'edit.html',
-    controller: 'editCtrl'
-  });
-  $stateProvider.state('view', {
-    url: '/view/:wallet_id/:image_id',
-    templateUrl: 'view.html',
-    controller: 'viewCtrl'
-  });
-  $stateProvider.state('signup', {
-    url: '/signup.html',
-    templateUrl: 'signup.html',
-    controller: 'loginCtrl'
-  });
-  $stateProvider.state('createWallet', {
-    url: '/createWallet.html',
-    templateUrl: 'createWallet.html',
-    controller: 'createWalletCtrl'
-  });
-  $stateProvider.state('login', {
-    url: '/login',
-    templateUrl: 'login.html',
-    controller: 'loginCtrl'
-  });
-  $stateProvider.state('profile', {
-    url: '/profile',
-    templateUrl: 'profile.html',
-    controller: 'profileCtrl'
-  });
-  $stateProvider.state('info', {
-    url: '/info/:id/:wid',
-    templateUrl: 'info.html',
-    controller: 'infoCtrl'
-  });
-  $stateProvider.state('chat', {
-    url: '/chat',
-    templateUrl: 'chat.html',
-    controller: 'chatCtrl'
-  });
-   $stateProvider.state('upgrades', {
-    url: '/upgrades',
-    templateUrl: 'upgrades.html',
-    controller: 'upgradesCtrl'
-  });
-})
-.run(function ($ionicPlatform) {
-  $ionicPlatform.ready(function () {
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
-});

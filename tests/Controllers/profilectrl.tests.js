@@ -45,7 +45,7 @@ describe('Wallet App', function() {
 
         });
 
-        it('let there be scope', function(done, $rootScope) {
+        xit('let there be scope', function(done, $rootScope) {
             function authHandler(error, authData) {
                 if (error) {
                     console.log("Login Failed!", error);
@@ -54,10 +54,11 @@ describe('Wallet App', function() {
                     console.log('logged in');
                     expect(scope.joined).toBeUndefined();
                     User.promise.then(function() {
-                        console.log(User);
+                        //console.log(User);
                         //expect(scope.name).toEqual('Olivia Nicole Stalter');
                         done();
                     })
+                    done();
 
                 }
             }
@@ -67,7 +68,7 @@ describe('Wallet App', function() {
                 password: '123456'
             }, authHandler);
             scope.$apply();
-
+            done();
         });
 
 

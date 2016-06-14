@@ -12,7 +12,7 @@ describe('Wallet App', function () {
 
         $provide.value('FirebaseConfig', {
             'base': 'https://dev456.firebaseio.com/'
-        }); 
+        });
 
     }));
     beforeEach(module(function ($provide) {
@@ -21,7 +21,7 @@ describe('Wallet App', function () {
     }));
 
     beforeEach(module(function ($provide) {
-        $provide.value('HttpService');  
+        $provide.value('HttpService');
     }));
 
 
@@ -45,7 +45,7 @@ describe('Wallet App', function () {
 
         });
 
-        it('let there be scope', function (done,$rootScope) {
+        xit('let there be scope', function (done,$rootScope) {
          function authHandler(error, authData) {
             if (error) {
                 console.log("Login Failed!", error);
@@ -63,27 +63,27 @@ describe('Wallet App', function () {
              scope.$apply();
 
              expect(scope).toBeDefined();
-             }); 
-        it('goes to profile', function () {
+             });
+        xit('goes to profile', function () {
             scope.goProfile();
             expect(stateMock.go).toHaveBeenCalledWith('profile');
-        });  
-        it('goes to chat or warns', function () {
+        });
+        xit('goes to chat or warns', function () {
             scope.chat();
             expect(stateMock.go).toHaveBeenCalledWith('chat');
-        });  
-        it('goes to wallets or warns', function (done,$rootScope) {
+        });
+        xit('goes to wallets or warns', function (done,$rootScope) {
             scope.main();
             expect(stateMock.go).toHaveBeenCalledWith('main');
             User.promise.then(function() {
                 console.log(User.email);
                 done();
             })
-            
-        }); 
-        it('logs you out', function (done,$rootScope) {
+
+        });
+        xit('logs you out', function (done,$rootScope) {
             scope.logOut();
-            done() 
+            done()
             expect(stateMock.go).toHaveBeenCalledWith('login');
         });
 

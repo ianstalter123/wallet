@@ -2,6 +2,7 @@
 <ion-view view-title="BABY WALLET 0.7">
 <ion-nav-bar class="bar-positive">
 
+
 </ion-nav-bar>
 <ion-content class="has-header" style="background-color: #f2f2f4;">
 
@@ -12,6 +13,7 @@
                 <img src="img/start.png">
             </div>
         </div>
+
         <button ng-show='!loggedIn' ui-sref="login" class="button button-full button-positive">
             Login
         </button>
@@ -22,10 +24,14 @@
             Log Out
         </button>
         <a ng-show='loggedIn' class="item item-avatar" ng-click="goProfile()">
+
             <img src="{{profileImageURL}}">
+
             <h2>{{name}}</h2>
         </a>
+
         </ion-content>
+
 </ion-pane>
 <ion-tabs class="tabs-positive tabs-icon-top">
     <ion-tab title="Home" ui-sref="start" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
@@ -35,6 +41,9 @@
         <!-- Tab 2 content -->
     </ion-tab>
     <ion-tab ng-click="main()" ng-show='loggedIn' title="Wallets" icon-on="ion-ios-gear" icon-off="ion-ios-gear-outline">
+        <!-- Tab 3 content -->
+    </ion-tab>
+     <ion-tab ui-sref="stream" ng-show='loggedIn' title="Stream" icon-on="ion-ios-filing" icon-off="ion-ios-filing-outline">
         <!-- Tab 3 content -->
     </ion-tab>
      <ion-tab ui-sref="upgrades" ng-show='loggedIn' title="Upgrades" icon-on="ion-ios-home" icon-off="ion-ios-home">

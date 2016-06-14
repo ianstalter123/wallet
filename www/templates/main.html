@@ -1,0 +1,37 @@
+<ion-view view-title="GALLERY" cache-view="false">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button ui-sref="start">
+        </ion-nav-back-button>
+        <ion-nav-buttons side="secondary">
+            <a class="button button-icon button-clear ion-plus-round" ng-click="showDetails()"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content style="background-color: #f2f2f4;" class="has-header" ng-controller="mainCtrl" ng-init="loadImages()">
+        <div class="row">
+            <ion-list style="width:100%">
+                <ion-item style="width:100%" class="item item-thumbnail-left" ng-repeat="wallet in wallets">
+                    <img ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
+                    <h2 ng-click="edit($event)">
+  {{wallets[$index].name}}
+  </h2>
+                    <h2>
+  {{wallets[$index].birthday | date:'M/d/y'}}
+  <i id="{{wallets[$index].$id}}" ng-click="giveLove($event)" style="font-size:30px" class="icon ion-heart"></i>
+  {{wallets[$index].likes.count}}
+  <i ui-sref="show({id: '{{wallets[$index].$id}}' })"  style="font-size:30px" class="icon ion-happy-outline"></i>
+  </h2>
+                    <ion-option-button class="button-energized" ng-click="info(wallets[$index].$id)">
+                        info
+                    </ion-option-button>
+                    <ion-option-button class="button-positive" ng-click="join(wallets[$index].$id)">
+                        join
+                    </ion-option-button>
+                    <ion-option-button ng-show="wallets[$index].$id === myWalId" class="button-info" ng-click="delete(wallets[$index].$id)">
+                        Delete
+                    </ion-option-button>
+                </ion-item>
+            </ion-list>
+        </div>
+        </div>
+    </ion-content>
+    </ion-pane>

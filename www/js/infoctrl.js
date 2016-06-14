@@ -1,5 +1,5 @@
 angular.module('wallet.controllers')
-.controller('infoCtrl', function($state,
+  .controller('infoCtrl', function($state,
     $q,
     $scope,
     $rootScope,
@@ -8,32 +8,28 @@ angular.module('wallet.controllers')
     $firebaseObject,
     HttpService,
     $stateParams,
-     DB) {
+    DB) {
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
-        viewData.enableBack = true;
-        HttpService.showTemporaryLoading('Loading...');
+      viewData.enableBack = true;
+      HttpService.showTemporaryLoading('Loading...');
+      var userRef =
+        DB.child('users')
+        .child($stateParams.id);
+      userRef.once('value', function(datasnap) {
+        $scope.name = datasnap.val().settings.name;
+      });
 
     });
     $scope.$on('$ionicView.enter', function() {
-        // code to run each time view is entered
-        console.log('in info controller');
-        console.log($stateParams);
+      // code to run each time view is entered
+      console.log('in info controller');
+      console.log($stateParams);
 
-        var ref = DB.child('wallets');
-        var userRef =
-        DB.child('users')
-        .child($stateParams.id);
+      var ref = DB.child('wallets');
 
-        var walRef = DB.child('wallets')
+      var walRef = DB.child('wallets')
         .child($stateParams.wid)
-        $scope.profile = $firebaseObject(walRef); //console.log($scope
-
-        userRef.on('value', function(datasnap) {
-            $scope.name = datasnap.val().settings.name;
-            if(datasnap.val().wallets.wallets) {
-            $scope.joined = datasnap.val().wallets.wallets;
-        }
-        });
+      $scope.profile = $firebaseObject(walRef); //console.log($scope
 
     });
-});
+  });
