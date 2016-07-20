@@ -12,9 +12,22 @@ angular.module('wallet.controllers')
     User) {
 
     var ref = DB.child('wallets');
+
+    /*================================================
+    =           Dummy image for upload box            =
+    ================================================*/
+    DB.child('images').child('-K9Lh1_n2XZ5de49k1bz').child('image').once('value', function(snap) {
+      $scope.loadImage = snap.val();
+    });
+
+
     $scope.wallets = $firebaseArray(ref);
     $scope.item = {};
-    //why is the user not the most current
+
+
+    /*================================================
+    =           Create a wallet            =
+    ================================================*/
     $scope.createWallet = function(bday, name, image) {
       console.log(bday);
       $scope.wallets.$add({
@@ -23,8 +36,7 @@ angular.module('wallet.controllers')
         birthday: bday,
         name: name
       }).then(function(data) {
-        //alert("Image has been uploaded");
-        //console.log(data.key());
+
         $scope.item.image = '';
         $scope.loadimage = '';
         name = '';
@@ -43,9 +55,12 @@ angular.module('wallet.controllers')
           }
         };
 
+        /*================================================
+    =           Sets users wallet id            =
+    ================================================*/
         DB
           .child('users')
-          .child($rootScope.id)
+          .child(User.uid)
           .child('settings')
           .child('walletid')
           .set(data.key(), onComplete);

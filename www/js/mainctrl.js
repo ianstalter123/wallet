@@ -17,21 +17,94 @@ angular.module('wallet.controllers')
     HttpService,
     $rootScope,
     $ionicListDelegate,
-    DB
+    DB,
+    $timeout
   ) {
 
 
     $scope.$on('$ionicView.beforeEnter', function(event, viewData) {
       $ionicHistory.clearHistory();
       viewData.enableBack = true;
-      HttpService.showTemporaryLoading('Loading...');
+
       $ionicListDelegate.closeOptionButtons();
 
       $scope.myWalId = User.wallet.id;
-      $scope.wallets = User.wallets;
-
+      /*================================================
+    =            makes sure wallet is loaded            =
+    ================================================*/
+      User.walletRef.then(function() {
+        $timeout(function() {
+          $scope.wallets = User.wallets;
+          console.log($scope.wallets);
+        });
+      });
 
     });
+
+    if (!$scope.wallets) {
+      HttpService.showTemporaryLoading('Loading...');
+    };
+
+
+    /*================================================
+    =            new wallet            =
+    ================================================*/
+    $scope.newWallet = function() {
+      $scope.new = true;
+      //console.log($scope.id);
+
+      if (User.wallet.id !== undefined) {
+        //console.log(snapshot.val());
+        $scope.new = false;
+        $ionicPopup.alert({
+          title: 'You already have a wallet',
+          template: 'Only 1 wallet allowed!'
+        });
+      }
+
+      if ($scope.new === true) {
+        var options = {
+          quality: 75,
+          destinationType: Camera.DestinationType.DATA_URL,
+          sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          popoverOptions: CameraPopoverOptions,
+          targetWidth: 500,
+          targetHeight: 500,
+          saveToPhotoAlbum: false
+        };
+        //title:title -> below image should also load a title for wallet data
+        //check if there is not already a wallet
+        $cordovaCamera.getPicture(options).then(function(imageData) {
+          $scope.wallets.$add({
+            image: imageData,
+            uid: User.uid
+          }).then(function(data) {
+
+            DB
+              .child('users')
+              .child(User.uid)
+              .child('walletid')
+              .set(data.key())
+
+
+            $scope.new = false;
+            $timeout(function() {
+              $state.go('edit', {
+                id: data.key()
+              });
+            }, 1000);
+          });
+        }, function(error) {
+          console.error(error);
+        });
+      }
+    };
+
+    /*================================================
+    =            action sheet for new wallet            =
+    ================================================*/
 
     $scope.showDetails = function() {
       $ionicActionSheet.show({
@@ -49,6 +122,10 @@ angular.module('wallet.controllers')
       });
     };
 
+    /*================================================
+    =            clicking on heart like a wallet            =
+    ================================================*/
+
     $scope.giveLove = function(event) {
       console.log('giving love');
       $scope.loveid = event.target.id;
@@ -58,6 +135,9 @@ angular.module('wallet.controllers')
         .child('likes')
         .once('value', function(snap) {
           console.log('value');
+          /*================================================
+    =            Checks to see if this user already liked           =
+    ================================================*/
           if (snap.child(User.uid).exists()) {
             console.log('already liked');
           } else {
@@ -67,14 +147,20 @@ angular.module('wallet.controllers')
               var count = snap.val().count;
             } else {
               var count = 0;
-            }
+            };
+
+            /*================================================
+    =           increments count           =
+    ================================================*/
             count = count + 1;
             console.log('new count', count);
 
             like[User.uid] = 'true';
             like['count'] = count;
             DB.child('wallets').child($scope.loveid).child('likes').update(like);
-            //do same thing on the local copy
+            /*================================================
+    =           Increments count locally            =
+    ================================================*/
             for (var i = 0; i < $scope.wallets.length; i++) {
               if ($scope.wallets[i].$id === $scope.loveid) {
                 $scope.wallets[i].likes = like;
@@ -84,6 +170,10 @@ angular.module('wallet.controllers')
         })
 
     };
+
+    /*================================================
+    =            Info button for walletinfo            =
+    ================================================*/
 
     $scope.info = function(walletId) {
       console.log('info time');
@@ -99,7 +189,11 @@ angular.module('wallet.controllers')
           });
         })
 
-    }
+    };
+
+    /*================================================
+    =          Join button to join wallet            =
+    ================================================*/
 
     $scope.join = function(walletId) {
       $ionicListDelegate.closeOptionButtons()
@@ -179,6 +273,10 @@ angular.module('wallet.controllers')
         });
     };
 
+    /*================================================
+    =          Delete a wallet            =
+    ================================================*/
+
     $scope.delete = function(event) {
       //console.log(event);
       var delRef = new Firebase(FirebaseConfig.base + '/wallets/' + event + '/uid');
@@ -241,7 +339,9 @@ angular.module('wallet.controllers')
 
 
 
-
+      /*================================================
+    =            View a wallet            =
+    ================================================*/
       $scope.view = function() {
         $scope.thisId = $('.selected').attr('id');
         $state.go('show', {
@@ -249,58 +349,7 @@ angular.module('wallet.controllers')
         });
       };
 
-      $scope.newWallet = function() {
-        $scope.new = true;
-        //console.log($scope.id);
 
-        if (User.wallet.id !== undefined) {
-          console.log(snapshot.val());
-          $scope.new = false;
-          $ionicPopup.alert({
-            title: 'You already have a wallet',
-            template: 'Only 1 wallet allowed!'
-          });
-        }
-
-        if ($scope.new === true) {
-          var options = {
-            quality: 75,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            allowEdit: true,
-            encodingType: Camera.EncodingType.JPEG,
-            popoverOptions: CameraPopoverOptions,
-            targetWidth: 500,
-            targetHeight: 500,
-            saveToPhotoAlbum: false
-          };
-          //title:title -> below image should also load a title for wallet data
-          //check if there is not already a wallet
-          $cordovaCamera.getPicture(options).then(function(imageData) {
-            $scope.wallets.$add({
-              image: imageData,
-              uid: User.uid
-            }).then(function(data) {
-
-              DB
-                .child('users')
-                .child(User.uid)
-                .child('walletid')
-                .set(data.key())
-
-
-              $scope.new = false;
-              $timeout(function() {
-                $state.go('edit', {
-                  id: data.key()
-                });
-              }, 1000);
-            });
-          }, function(error) {
-            console.error(error);
-          });
-        }
-      };
       $scope.upload = function() {
         //scope.upload needs to determine the :id of current wallet
         //and upload images to that wallet. bam.
@@ -326,6 +375,10 @@ angular.module('wallet.controllers')
           console.error(error);
         });
       };
+
+      /*================================================
+    =           view wallet gallery           =
+    ================================================*/
       $scope.gallery = function() {
         var options = {
           quality: 75,
