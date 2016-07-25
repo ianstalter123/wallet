@@ -72,7 +72,10 @@ angular.module('wallet.controllers')
               respRef.off('value', responseHandler);
               var response = respSnap.val();
               console.log(response);
-              deferred.resolve(response);
+              DB.child('wallets')
+                .child($stateParams.id)
+                .child('images')
+                .push(response);
             }
           };
           respRef.on('value', responseHandler);
