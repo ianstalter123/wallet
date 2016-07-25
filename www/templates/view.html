@@ -1,16 +1,36 @@
 <ion-view view-title="VIEW" cache-view="false">
-<ion-nav-bar class="bar-positive">
-<ion-nav-back-button >
-</ion-nav-back-button>
-<ion-nav-buttons side="secondary">
-<a class="button button-icon button-clear ion-plus-round" ng-click="shareAnywhere()"></a>
-</ion-nav-buttons>
-</ion-nav-bar>
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="secondary">
+            <a class="button button-icon button-clear ion-plus-round" ng-click="shareAnywhere()"></a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
     <ion-content>
         <div class="list card">
             <div class="item item-image animated fadeIn">
-                <img ng-click="share()" src="data:image/jpeg;base64,{{images[index].image}}">
+                <img ng-click="share()" src="{{source}}">
             </div>
+        </div>
+            <div class="item item-input-inset">
+                        <button ng-click="save(source)" class="button button-medium">
+                            Save
+                        </button>
+                        <button ng-click="revert()" class="button button-medium">
+                            Revert
+                        </button>
+                        <button ng-click="duplicate()" class="button button-medium">
+                            Duplicate
+                        </button>
+                        <button ng-click="remove()" class="button button-medium">
+                            Remove
+                        </button>
+                    </div>
+        <div class="item item-input-inset">
+            <img ng-click="setSource(blackwhite)" style="width:25%" src="{{blackwhite}}">
+            <img ng-click="setSource(fade)" style="width:25%" src="{{fade}}">
+            <img ng-click="setSource(blur)" style="width:25%" src="{{blur}}">
+            <img ng-click="setSource(face)" style="width:25%" src="{{face}}">
         </div>
         <div class="item item-input-inset">
             <label class="item-input-wrapper">
@@ -24,8 +44,8 @@
             <li style="text-align:center">{{c.user}} : {{c.comment}}</li>
         </ul>
     </ion-content>
-</ion-pane>
-<div class="bar bar-footer bar-balanced">
-    <div class="title"></div>
-    <!-- <button class="button" ng-click="shareViaTwitter('some message', 'null', 'https://www.thepolyglotdeveloper.com')">Share on Twitter</button> -->
-</div>
+    </ion-pane>
+    <div class="bar bar-footer bar-balanced">
+        <div class="title"></div>
+        <!-- <button class="button" ng-click="shareViaTwitter('some message', 'null', 'https://www.thepolyglotdeveloper.com')">Share on Twitter</button> -->
+    </div>

@@ -10,7 +10,7 @@
         <div class="row">
             <ion-list style="width:100%">
                 <ion-item style="width:100%" class="item item-thumbnail-left" ng-repeat="wallet in wallets">
-                    <img ng-src="data:image/jpeg;base64,{{wallets[$index].image}}">
+                    <img ng-src="{{wallets[$index].imageUrl}}">
                     <h2 ng-click="edit($event)">
   {{wallets[$index].name}}
   </h2>

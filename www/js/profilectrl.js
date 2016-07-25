@@ -18,17 +18,22 @@ angular.module('wallet.controllers')
     ================================================*/
       User.promise.then(function() {
         $scope.walletId = User.wallet.id;
-        $scope.image = User.wallet.image;
+        $scope.imageUrl = User.wallet.imageUrl;
         $scope.name = User.wallet.name;
 
       })
     });
 
-    DB.child('users').child(User.uid).child('wallets')
-      .once('value').then(function(snap) {
-        if (snap.child('wallets').exists()) {
+    DB.child('users')
+      .child(User.uid)
+      .child('wallets')
+      .once('value')
+      .then(function(snap) {
+        if (snap.child('wallets')
+          .exists()) {
           $timeout(function() {
-            $scope.joined = snap.val().wallets;
+            $scope.joined = snap.val()
+              .wallets;
           })
         }
       })

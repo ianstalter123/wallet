@@ -65,27 +65,28 @@ angular.module('wallet.services', [])
       /*================================================
     =  Orders the wallets, appending users wallet to top =
     ================================================*/
-      walletRef.once("value").then(function(snapshot) {
-        //console.log('data1:', snapshot.val());
-        angular.forEach(snapshot.val(), function(wallet, key) {
-          if (wallet.uid !== user.uid) {
-            var betterWallet = {};
-            betterWallet = wallet;
-            betterWallet.$id = key;
-            wallets.push(betterWallet);
-          } else if (wallet.uid === user.uid) {
-            //console.log('match',wallet.uid);
-            mine.push(wallet);
-            mine[mine.length - 1].$id = key;
+      walletRef.once("value")
+        .then(function(snapshot) {
+          //console.log('data1:', snapshot.val());
+          angular.forEach(snapshot.val(), function(wallet, key) {
+            if (wallet.uid !== user.uid) {
+              var betterWallet = {};
+              betterWallet = wallet;
+              betterWallet.$id = key;
+              wallets.push(betterWallet);
+            } else if (wallet.uid === user.uid) {
+              //console.log('match',wallet.uid);
+              mine.push(wallet);
+              mine[mine.length - 1].$id = key;
+            }
+          });
+          for (var i = 0; i < mine.length; i++) {
+            wallets.unshift(mine[i]);
           }
-        });
-        for (var i = 0; i < mine.length; i++) {
-          wallets.unshift(mine[i]);
-        }
 
-        //console.log('ordered wallets', wallets);
-        user.wallets = wallets;
-      })
+          //console.log('ordered wallets', wallets);
+          user.wallets = wallets;
+        })
 
       user.userPath = 'users/' + auth.uid;
 
@@ -100,20 +101,29 @@ angular.module('wallet.services', [])
       /*================================================
     =  Gets the values for the users wallet settings  =
     ================================================*/
-      settingsRef.once('value').then(function(snap) {
-        if (snap.child('walletid').exists()) {
-          console.log('walletid', snap.val());
-          user.wallet.id = snap.val().walletid;
-          DB.child('wallets').child(user.wallet.id)
-            .once('value', function(walsnap) {
-              user.wallet.food = walsnap.val().food;
-              user.wallet.activity = walsnap.val().activity;
-              user.wallet.birthday = walsnap.val().birthday;
-              user.wallet.image = walsnap.val().image;
-              user.wallet.name = walsnap.val().name;
-            })
-        }
-      })
+      settingsRef.once('value')
+        .then(function(snap) {
+          if (snap.child('walletid')
+            .exists()) {
+            console.log('walletid', snap.val());
+            user.wallet.id = snap.val()
+              .walletid;
+            DB.child('wallets')
+              .child(user.wallet.id)
+              .once('value', function(walsnap) {
+                user.wallet.food = walsnap.val()
+                  .food;
+                user.wallet.activity = walsnap.val()
+                  .activity;
+                user.wallet.birthday = walsnap.val()
+                  .birthday;
+                user.wallet.imageUrl = walsnap.val()
+                  .imageUrl;
+                user.wallet.name = walsnap.val()
+                  .name;
+              })
+          }
+        })
 
       var settings = null;
 

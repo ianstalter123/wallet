@@ -6,8 +6,14 @@
     <ion-content>
         <div class="list card">
             <div class="item item-image">
-                <img src="data:image/jpeg;base64,{{image}}">
+                <img src="{{source}}">
             </div>
+               <div class="item item-input-inset">
+            <img ng-click="setSource(blackwhite)" style="width:25%" src="{{blackwhite}}">
+            <img ng-click="setSource(fade)" style="width:25%" src="{{fade}}">
+            <img ng-click="setSource(blur)" style="width:25%" src="{{blur}}">
+            <img ng-click="setSource(face)" style="width:25%" src="{{face}}">
+        </div>
             <label class="item item-input">
                 <span class="input-label">Name</span>
                 <input ng-model="name" type="text" placeholder="{{name}}">
