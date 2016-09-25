@@ -13,8 +13,6 @@ angular.module('wallet.services', [])
 
 .factory('User', function(DB, $state, HttpService, $timeout) {
 
-
-
   var baseRef = DB;
   var user = {};
 

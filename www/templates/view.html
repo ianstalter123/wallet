@@ -1,4 +1,4 @@
-<ion-view view-title="VIEW" cache-view="false">
+<ion-view view-title="VIEW" cache-view="true">
     <ion-nav-bar class="bar-positive">
         <ion-nav-back-button>
         </ion-nav-back-button>
@@ -12,7 +12,7 @@
                 <img ng-click="share()" src="{{source}}">
             </div>
         </div>
-            <div class="item item-input-inset">
+            <div ng-show="myWallet" class="item item-input-inset">
                         <button ng-click="save(source)" class="button button-medium">
                             Save
                         </button>

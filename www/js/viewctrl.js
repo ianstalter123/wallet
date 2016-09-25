@@ -1,9 +1,35 @@
 angular.module('wallet.controllers')
   .controller('viewCtrl', function($scope, $state, $stateParams, $firebaseArray,
-    $firebaseObject, $cordovaInstagram, DB, $ionicViewSwitcher, $cordovaSocialSharing, $http, $rootScope) {
+      $firebaseObject, $cordovaInstagram, DB, $ionicViewSwitcher, $cordovaSocialSharing, $http, $rootScope, User) {
     console.log('test');
     //console.log($stateParams.image);
+
+    /*=============================================
+    =            Gets the wallet id from params            =
+    =============================================*/
+
+
+
     $scope.wallet = $stateParams.wallet_id;
+
+    /*====================================================================
+    =            Checks to see if this wallet belongs to user            =
+    ====================================================================*/
+
+
+
+
+    User.walletRef.then(function() {
+      console.log('wallet id', User.wallet.id);
+      console.log('scope wallet', $scope.wallet);
+      if ($scope.wallet === User.wallet.id) {
+        $scope.myWallet = true;
+      } else {
+        $scope.myWallet = false;
+      }
+
+    })
+
     var walletRef = new Firebase('https://crackling-fire-8350.firebaseio.com/wallets/' + $scope.wallet + '/images');
     $scope.images = $firebaseArray(walletRef);
     $scope.image = $stateParams.image_id;
@@ -82,9 +108,9 @@ angular.module('wallet.controllers')
         $scope.setSource = function(newSource) {
           $scope.source = newSource;
         }
-    $scope.source = $scope.images[$scope
-      .image]
-      .imageUrl;
+        $scope.source = $scope.images[$scope
+          .image]
+          .imageUrl;
         $scope.fade = 'https://res.cloudinary.com/ianscloud/image/fetch/e_gradient_fade/' + $scope.images[
           $scope.image]
           .imageUrl;

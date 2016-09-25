@@ -1,7 +1,7 @@
 angular.module('wallet.controllers')
   .controller('showCtrl', function($scope, $ionicPopup, FirebaseConfig,
     $firebaseAuth, $state, $rootScope, $stateParams, $firebaseArray,
-    $firebaseObject, $ionicActionSheet, $cordovaCamera, DB) {
+    $firebaseObject, $ionicActionSheet, $cordovaCamera, DB, ImageClient) {
     //$scope.id = $stateParams.id;
     var ref = new Firebase(FirebaseConfig.base);
     var obj = $firebaseAuth(ref);
@@ -66,7 +66,7 @@ angular.module('wallet.controllers')
           var respRef = DB.child('api')
             .child('imageUploads')
             .child('response')
-            .child(reqRef.key);
+            .child(reqRef.key());
           var responseHandler = function(respSnap) {
             if (respSnap.exists()) {
               respRef.off('value', responseHandler);

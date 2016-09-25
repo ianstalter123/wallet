@@ -8,6 +8,7 @@
     "angular": "1.4.3"
   },
   "dependencies": {
-    "angular-mocks": "^1.5.5"
+    "angular-mocks": "^1.5.5",
+    "ionic-datepicker": "^1.2.0"
   }
 }
