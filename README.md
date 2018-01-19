@@ -1,11 +1,10 @@
 # wallet
 
-Wallet is an ionic firebase app which allows users to upload, share, comment on and apply filters to images. 
-
+Wallet is an angular / ionic firebase app which allows users to upload, share, comment on and apply filters to images. 
 
 It uses firebase for storing / retrieving images, user data, and providing authentication information, 
 
-Cloudinary API for converting images into cloud base URLs, and also for providing image filters.
+Cloudinary API for converting images into cloud based URLs, and also for providing image filters.
 
 
 The User service provides some of the basic features such as following other users, viewing their profiles,
